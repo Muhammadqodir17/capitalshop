@@ -1,0 +1,381 @@
+<!doctype html>
+{% load static %}
+<html class="no-js" lang="zxx">
+
+<!-- Mirrored from preview.colorlib.com/theme/capitalshop/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 15:16:50 GMT -->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Shop | eCommers</title>
+    <meta name="description" content>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/icon/favicon.png' %}">
+
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/price_rangs.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script nonce="f4643259-d23d-4138-aaa8-e7e4d7996b39">try {
+        (function (w, d) {
+            !function (o, p, q, r) {
+                o[q] = o[q] || {};
+                o[q].executed = [];
+                o.zaraz = {deferred: [], listeners: []};
+                o.zaraz.q = [];
+                o.zaraz._f = function (s) {
+                    return async function () {
+                        var t = Array.prototype.slice.call(arguments);
+                        o.zaraz.q.push({m: s, a: t})
+                    }
+                };
+                for (const u of ["track", "set", "debug"]) o.zaraz[u] = o.zaraz._f(u);
+                o.zaraz.init = () => {
+                    var v = p.getElementsByTagName(r)[0], w = p.createElement(r),
+                        x = p.getElementsByTagName("title")[0];
+                    x && (o[q].t = p.getElementsByTagName("title")[0].text);
+                    o[q].x = Math.random();
+                    o[q].w = o.screen.width;
+                    o[q].h = o.screen.height;
+                    o[q].j = o.innerHeight;
+                    o[q].e = o.innerWidth;
+                    o[q].l = o.location.href;
+                    o[q].r = p.referrer;
+                    o[q].k = o.screen.colorDepth;
+                    o[q].n = p.characterSet;
+                    o[q].o = (new Date).getTimezoneOffset();
+                    if (o.dataLayer) for (const B of Object.entries(Object.entries(dataLayer).reduce(((C, D) => ({...C[1], ...D[1]})), {}))) zaraz.set(B[0], B[1], {scope: "page"});
+                    o[q].q = [];
+                    for (; o.zaraz.q.length;) {
+                        const E = o.zaraz.q.shift();
+                        o[q].q.push(E)
+                    }
+                    w.defer = !0;
+                    for (const F of [localStorage, sessionStorage]) Object.keys(F || {}).filter((H => H.startsWith("_zaraz_"))).forEach((G => {
+                        try {
+                            o[q]["z_" + G.slice(7)] = JSON.parse(F.getItem(G))
+                        } catch {
+                            o[q]["z_" + G.slice(7)] = F.getItem(G)
+                        }
+                    }));
+                    w.referrerPolicy = "origin";
+                    w.src = "https://preview.colorlib.com/cdn-cgi/zaraz/s.js?z=" + btoa(encodeURIComponent(JSON.stringify(o[q])));
+                    v.parentNode.insertBefore(w, v)
+                };
+                ["complete", "interactive"].includes(p.readyState) ? zaraz.init() : o.addEventListener("DOMContentLoaded", zaraz.init)
+            }(w, d, "zarazData", "script");
+        })(window, document)
+    } catch (e) {
+        throw fetch("/cdn-cgi/zaraz/t"), e;
+    }
+    ;</script>
+</head>
+<body>
+
+<div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+        <div class="preloader-inner position-relative">
+            <div class="preloader-circle"></div>
+            <div class="preloader-img pere-text">
+                <img src="{% static 'img/icon/loder.png' %}" alt="loder">
+            </div>
+        </div>
+    </div>
+</div>
+
+<header>
+    <div class="header-area">
+        <div class="header-top d-none d-sm-block">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="d-flex justify-content-between flex-wrap align-items-center">
+                            <div class="header-info-left">
+                                <ul>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Privacy</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="#">Careers</a></li>
+                                </ul>
+                            </div>
+                            <div class="header-info-right d-flex">
+                                <ul class="order-list">
+                                    <li><a href="#">My Wishlist</a></li>
+                                    <li><a href="#">Track Your Order</a></li>
+                                </ul>
+                                <ul class="header-social">
+                                    <li><a href="#"><i class="fab fa-facebook"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-twitter"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-linkedin-in"></i></a></li>
+                                    <li><a href="#"><i class="fab fa-youtube"></i></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-mid header-sticky">
+            <div class="container">
+                <div class="menu-wrapper">
+
+                    <div class="logo">
+                        <a href="/"><img src="{% static 'img/logo/logo.png' %}" alt></a>
+                    </div>
+
+                    <div class="main-menu d-none d-lg-block">
+                        <nav>
+                            <ul id="navigation">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/categories/">Men</a></li>
+                                <li><a href="/categories/">Women</a></li>
+                                <li class="new"><a href="/categories/">Baby Collection</a></li>
+                                <li><a href="#">Pages <i class="fas fa-angle-down"></i></a>
+                                    <ul class="submenu">
+                                        <li><a href="/login/">Login</a></li>
+                                        <li><a href="/cart/">Cart</a></li>
+                                        <li><a href="/pro-details/">Product Details</a></li>
+                                        <li><a href="/checkout/">Product Checkout</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/blog/">Blog</a>
+                                    <ul class="submenu">
+                                        <li><a href="/blog/">Blog</a></li>
+                                        <li><a href="/elements/">Element</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="/contact/">Contact</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+
+                    <div class="header-right">
+                        <ul>
+                            <li>
+                                <div class="nav-search search-switch hearer_icon">
+                                    <a id="search_1" href="javascript:void(0)">
+                                        <span class="flaticon-search"></span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li><a href="/login/"><span class="flaticon-user"></span></a></li>
+                            <li class="cart"><a href="/cart/"><span class="flaticon-shopping-cart"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="search_input" id="search_input_box">
+                    <form class="search-inner d-flex justify-content-between ">
+                        <input type="text" class="form-control" id="search_input" placeholder="Search Here">
+                        <button type="submit" class="btn"></button>
+                        <span class="ti-close" id="close_search" title="Close Search"></span>
+                    </form>
+                </div>
+
+                <div class="col-12">
+                    <div class="mobile_menu d-block d-lg-none"></div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom text-center">
+            <p>Sale Up To 50% Biggest Discounts. Hurry! Limited Perriod Offer <a href="#" class="browse-btn">Shop
+                Now</a></p>
+        </div>
+    </div>
+</header>
+
+{% block content %}
+
+{% endblock %}
+
+<footer>
+    <div class="footer-wrapper gray-bg">
+        <div class="footer-area footer-padding">
+
+            <section class="subscribe-area">
+                <div class="container">
+                    <div class="row justify-content-between subscribe-padding">
+                        <div class="col-xxl-3 col-xl-3 col-lg-4">
+                            <div class="subscribe-caption">
+                                <h3>Subscribe Newsletter</h3>
+                                <p>Subscribe newsletter to get 5% on all products.</p>
+                            </div>
+                        </div>
+                        <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-9">
+                            <div class="subscribe-caption">
+                                <form action="#">
+                                    <input type="text" placeholder="Enter your email">
+                                    <button class="subscribe-btn">Subscribe</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-xxl-2 col-xl-2 col-lg-4">
+
+                            <div class="footer-social">
+                                <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook"></i></a>
+                                <a href="#"><i class="fab fa-instagram"></i></a>
+                                <a href="#"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="container">
+                <div class="row justify-content-between">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-8">
+                        <div class="single-footer-caption mb-50">
+                            <div class="single-footer-caption mb-20">
+
+                                <div class="footer-logo mb-35">
+                                    <a href="/"><img src="{% static 'img/logo/logo2_footer.png' %}" alt></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Shop Men</h4>
+                                <ul>
+                                    <li><a href="#">Clothing Fashion</a></li>
+                                    <li><a href="#">Winter</a></li>
+                                    <li><a href="#">Summer</a></li>
+                                    <li><a href="#">Formal</a></li>
+                                    <li><a href="#">Casual</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Shop Women</h4>
+                                <ul>
+                                    <li><a href="#">Clothing Fashion</a></li>
+                                    <li><a href="#">Winter</a></li>
+                                    <li><a href="#">Summer</a></li>
+                                    <li><a href="#">Formal</a></li>
+                                    <li><a href="#">Casual</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Baby Collection</h4>
+                                <ul>
+                                    <li><a href="#">Clothing Fashion</a></li>
+                                    <li><a href="#">Winter</a></li>
+                                    <li><a href="#">Summer</a></li>
+                                    <li><a href="#">Formal</a></li>
+                                    <li><a href="#">Casual</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
+                        <div class="single-footer-caption mb-50">
+                            <div class="footer-tittle">
+                                <h4>Quick Links</h4>
+                                <ul>
+                                    <li><a href="#">Track Your Order</a></li>
+                                    <li><a href="#">Support</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="#">Carrier</a></li>
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom-area">
+            <div class="container">
+                <div class="footer-border">
+                    <div class="row">
+                        <div class="col-xl-12 ">
+                            <div class="footer-copy-right text-center">
+                                <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                                    All rights reserved | This template is made with <i class="fa fa-heart color-danger"
+                                                                                        aria-hidden="true"></i> by <a
+                                            href="https://colorlib.com/" target="_blank" rel="nofollow noopener">Mavlonbek</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<div id="back-top">
+    <a class="wrapper" title="Go to Top" href="#">
+        <div class="arrows-container">
+            <div class="arrow arrow-one">
+            </div>
+            <div class="arrow arrow-two">
+            </div>
+        </div>
+    </a>
+</div>
+
+
+<script src="{% static 'js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/slick.min.js' %}"></script>
+<script src="{% static 'js/jquery.slicknav.min.js' %}"></script>
+
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
+<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'js/waypoints.min.js' %}"></script>
+<script src="{% static 'js/price_rangs.js' %}"></script>
+
+<script src="{% static 'js/contact.js' %}"></script>
+<script src="{% static 'js/jquery.form.js' %}"></script>
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'js/mail-script.js' %}"></script>
+<script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
+
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
+        integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA=="
+        data-cf-beacon='{"rayId":"8545cb769f682119","b":1,"version":"2024.2.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
+        crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from preview.colorlib.com/theme/capitalshop/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 15:18:10 GMT -->
+</html>
