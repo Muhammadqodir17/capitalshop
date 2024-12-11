@@ -1,0 +1,168 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block content %}
+<main>
+
+    <div class="hero-area section-bg2">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="slider-area">
+                        <div class="slider-height2 slider-bg4 d-flex align-items-center justify-content-center">
+                            <div class="hero-caption hero-caption2">
+                                <h2>Wishlist</h2>
+                                <nav aria-label="breadcrumb">
+                                    <ol class="breadcrumb justify-content-center">
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item"></li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--    <h2 style="margin-left: 100px; margin-top: 10px">Istaklarim</h2>-->
+<!--    <h2 class="blog-head"-->
+<!--        style="color: #2d2d2d; margin-left: 100px; margin-top: 10px; font-size: 26px; font-weight: 540">Istaklarim</h2>-->
+<!--    <hr style="border: 1px solid grey; width: 1275px; margin-left: 100px; margin-top: 10px; margin-bottom: 23px">-->
+
+    <div class="listing-area pt-50 pb-50">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-9 col-lg-8 col-md-8" style="width: 100%">
+                    <div class="latest-items latest-items2">
+                        <div class="row">
+                            {% for liked in liked_obj %}
+                            <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 mb-4">
+                                <div class="properties pb-30">
+                                    <div class="properties-card">
+                                        <div class="properties-img" style="position: relative;">
+                                            <a href="/store/product_detail/{{ liked.product.id }}">
+                                                <img style="width: 282px; height: 300px" src="{{ liked.product.image.url }}" alt="Product Image"
+                                                >
+                                            </a>
+                                            {% if liked.product.discount != 0 %}
+                                                <div style="color: white; background: red; width: 50px; height: 23px; text-align: center; border-radius: 5px; position: absolute; top: 10px; right: 10px;">
+                                                    -{{ liked.product.discount }}%
+                                                </div>
+                                            {% endif %}
+                                            {% if liked.product.product_quantity == 0 %}
+                                                <div style="position: absolute; top: 0; left: 0px; z-index: 1;">
+                                                    <img src="{% static 'img/logo/sold-out.png' %}" alt="Sold Out"
+                                                         style="width: 80px; height: 80px;" >
+                                                </div>
+                                            {% endif %}
+                                            <!-- Social and cart icons -->
+                                            <div class="socal_icon" style="position: absolute; bottom: 15px; right: 15px; z-index: 100;">
+                                                {% if liked.product.product_quantity == 0 %}
+                                                    <a href="/store/like?product_id={{ liked.product.id }}">
+                                                        <ion-icon style="font-size: 28px; color: #262626;"
+                                                      name="heart"></ion-icon>
+                                                    </a>
+                                                {% else %}
+                                                    {% if not liked.product.id in saved_cart %}
+                                                    <a href="/store/cart_add?product_id={{ liked.product.id }}"><i
+                                                            class="bi bi-cart"></i></a>
+                                                    {% else %}
+                                                    <a href="/store/cart_add?product_id={{ liked.product.id }}"><i
+                                                            class="bi bi-cart-fill"></i></a>
+                                                    {% endif %}
+                                                    <a href="/store/like?product_id={{ liked.product.id }}">
+                                                        <ion-icon {% if not liked.product.id in liked_product %}
+                                                                  style="font-size: 28px; position: relative; top: 5px"
+                                                                  name="heart-empty" {% else %}
+                                                                  style="font-size: 28px; position: relative; top: 5px; color: #262626;"
+                                                                  name="heart" {% endif %}></ion-icon>
+                                                    </a>
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                        <div class="properties-caption properties-caption2"
+                                             style="margin-top: 10px; text-align: center;">
+                                            <h3>
+                                                <a href="/store/product_detail/{{ liked.product.id }}"
+                                                   style="font-size: 16px;">{{ liked.product.name }}</a>
+                                            </h3>
+                                            <div class="properties-footer" style="position: relative; margin-top: 5px;">
+                                                <div class="price">
+                                                    {% if liked.product.discount != 0 %}
+                                                    <span>${{ liked.product.price_with_discount }} <span
+                                                            style="text-decoration: line-through; color: #999;">${{ liked.product.price }}</span></span>
+                                                    {% else %}
+                                                    <span>${{ liked.product.price }}</span>
+                                                    {% endif %}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="cart_area">
+        <div class="container">
+            <div class="cart_inner">
+                <div class="row">
+                    {% if not liked_obj %}
+                    <div class="container">
+                        <div class="title">Wishlistingiz hozircha bo'sh</div>
+                        <div class="message">Bosh sahifadan boshlang — kerakli tovarni qidiruv orqali
+                            topishingiz yoki to'plamlarni ko'rishingiz mumkin
+                        </div>
+                        <a href="/store" class="button">Bosh sahifa</a>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+<style>
+    .container {
+        justify-content: center; /* Center content vertically */
+        align-items: center; /* Center content horizontally */
+        text-align: center; /* Center text inside each element */
+    }
+
+    .title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .message {
+        font-size: 16px;
+        color: #666;
+        margin-bottom: 20px;
+    }
+    .button {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+<style>
+    .properties {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100%; /* Ensures consistent height for all cards */
+    }
+</style>
+
+{% endblock %}

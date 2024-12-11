@@ -1,5 +1,5 @@
 from django.db import models
-from abc import ABCMeta, abstractmethod
+from abc import abstractmethod
 
 
 class BaseModel(models.Model):
@@ -9,6 +9,7 @@ class BaseModel(models.Model):
 
     class Meta:
         abstract = True
+
     @abstractmethod
     def __str__(self):
         pass

@@ -1,7 +1,7 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 {% block content %}
-    <main>
+<main>
 
     <section class="slider-area ">
         <div class="slider-active">
@@ -48,36 +48,39 @@
     <section class="items-product1 pt-30">
         <div class="container">
             <div class="row">
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6" style="width: 440px; height: 365px;">
                     <div class="single-items mb-20">
                         <div class="items-img">
-                            <img src="{% static 'img/gallery/items1.jpg' %}" alt>
+                            <a href="/store/men_products"><img src="{{ for_man.image.url }}"
+                                                               style="width: 440px; height: 365px;" alt></a>
                         </div>
                         <div class="items-details">
-                            <h4><a href="pro-details.html">Men's Fashion</a></h4>
-                            <a href="pro-details.html" class="browse-btn">Shop Now</a>
+                            <h4><a href="/store/men_products">Men's Fashion</a></h4>
+                            <a href="/store/men_products" class="browse-btn">Shop Now</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6" style="width: 440px; height: 365px;">
                     <div class="single-items mb-20">
                         <div class="items-img">
-                            <img src="{% static 'img/gallery/items2.jpg' %}" alt>
+                            <a href="/store/women_products"><img src="{{ for_woman.image.url }}"
+                                                                 style="width: 440px; height: 365px;" alt></a>
                         </div>
                         <div class="items-details">
-                            <h4><a href="pro-details.html">Women's Fashion</a></h4>
-                            <a href="pro-details.html" class="browse-btn">Shop Now</a>
+                            <h4><a href="/store/women_products">Women's Fashion</a></h4>
+                            <a href="/store/women_products" class="browse-btn">Shop Now</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6" style="width: 440px; height: 365px;">
                     <div class="single-items mb-20">
                         <div class="items-img">
-                            <img src="{% static 'img/gallery/items3.jpg' %}" alt>
+                            <a href="/store/baby_products"><img src="{{ for_baby.image.url }}"
+                                                                style="width: 440px; height: 365px;" alt></a>
                         </div>
                         <div class="items-details">
-                            <h4><a href="pro-details.html">Baby Fashion</a></h4>
-                            <a href="pro-details.html" class="browse-btn">Shop Now</a>
+                            <h4><a href="/store/baby_products">Baby Fashion</a></h4>
+                            <a href="/store/baby_products" class="browse-btn">Shop Now</a>
                         </div>
                     </div>
                 </div>
@@ -103,8 +106,8 @@
                                    aria-controls="nav-two" aria-selected="false">Women</a>
                                 <a class="nav-link" id="nav-three-tab" data-bs-toggle="tab" href="#nav-three" role="tab"
                                    aria-controls="nav-three" aria-selected="false">Baby</a>
-                                <a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" href="#nav-four" role="tab"
-                                   aria-controls="nav-four" aria-selected="false">Fashion</a>
+                                <!--                                <a class="nav-link" id="nav-four-tab" data-bs-toggle="tab" href="#nav-four" role="tab"-->
+                                <!--                                   aria-controls="nav-four" aria-selected="false">Fashion</a>-->
                             </div>
                         </nav>
 
@@ -118,142 +121,77 @@
                 <div class="tab-pane fade show active" id="nav-one" role="tabpanel" aria-labelledby="nav-one-tab">
 
                     <div class="latest-items-active">
-
+                        {% for man in men %}
                         <div class="properties pb-30">
                             <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest1.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
+                                <div class="properties-img" style="position: relative;">
+                                    <a href="/store/product_detail/{{ man.id }}"><img src="{{ man.image.url }}"
+                                                                                      style="width: 100%; height: 315px; object-fit: cover;"
+                                                                                      alt></a>
+                                    {% if man.discount > 0 %}
+                                    <div style="color: white; background: red; width: 50px; height: 23px; text-align: center;border-radius: 5px; position: absolute; top: 10px; right: 10px;">
+                                        -{{ man.discount }}%
+                                    </div>
+                                    {% endif %}
+                                    {% if man.product_quantity == 0 %}
+                                    <div style="position: absolute; top: 0px; left: 0px; z-index: 1">
+                                        <img src="{% static 'img/logo/sold-out.png' %}" alt="Sold Out"
+                                             style="width: 80px; height: 80px;">
+                                    </div>
+                                    {% endif %}
+                                    <div class="socal_icon" style="position: absolute; bottom: 15px; right: 15px; z-index: 100;">
+                                        {% if man.product_quantity == 0 %}
+                                        <a href="/store/like?product_id={{ man.id }}">
+                                            <ion-icon {% if not man.id in liked_product %}
+                                                      style="font-size: 28px; position: relative;"
+                                                      name="heart-empty" {% else %}
+                                                      style="font-size: 28px; color: #262626;"
+                                                      name="heart" {% endif %}></ion-icon>
+                                        </a>
+                                        {% else %}
+                                        {% if not man.id in saved_cart %}
+                                        <a href="/store/cart_add?product_id={{ man.id }}"><i class="bi bi-cart"></i></a>
+                                        {% else %}
+                                        <a href="/store/cart_add?product_id={{ man.id }}"><i
+                                                class="bi bi-cart-fill"></i></a>
+                                        {% endif %}
+                                        <a href="/store/like?product_id={{ man.id }}">
+                                            <ion-icon {% if not man.id in liked_product %}
+                                                      style="font-size: 28px; position: relative; top: 5px"
+                                                      name="heart-empty" {% else %}
+                                                      style="font-size: 28px; position: relative; top: 5px; color: #262626;"
+                                                      name="heart" {% endif %}></ion-icon>
+                                        </a>
+                                        {% endif %}
                                     </div>
                                 </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
+                                <div class="properties-caption properties-caption2" style="margin-top: 10px; text-align: center;">
+                                    <h3><a href="/store/product_detail/{{ man.id }}" style="font-size: 16px;">{{ man.name }}</a></h3>
+                                    <div class="properties-footer" style="margin-top: 5px;">
                                         <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
+                                            {% if man.discount == 0 %}
+                                            <span>${{ man.price }} </span>
+                                            {% else %}
+                                            <span>${{ man.price_with_discount }} <span>${{ man.price }} </span></span>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest2.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest3.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest4.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest2.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest4.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="tab-pane fade" id="nav-two" role="tabpanel" aria-labelledby="nav-two-tab">
 
                     <div class="latest-items-active">
-
+                        {% for woman in women %}
                         <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest1.jpg' %}" alt></a>
+                            <div class="properties-card" style="display: flex; flex-direction: column; align-items: center; justify-content: space-between;">
+                                <div class="properties-img" style="display: block; position: static;">
+                                    <a href="/store/product_detail/{{ woman.id }}">
+                                        <img src="{{ woman.image.url }}" style="width: 345px; height: 335px;" alt>
+                                    </a>
                                     <div class="socal_icon">
                                         <a href="#"><i class="ti-shopping-cart"></i></a>
                                         <a href="#"><i class="ti-heart"></i></a>
@@ -261,130 +199,27 @@
                                     </div>
                                 </div>
                                 <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
+                                    <h3><a href="/store/product_detail/{{ woman.id }}">{{ woman.name }}</a></h3>
                                     <div class="properties-footer">
                                         <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
+                                            <span>${{ woman.price_with_discount }} <span>${{ woman.price }} </span></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest2.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest3.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest4.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest2.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest4.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="tab-pane fade" id="nav-three" role="tabpanel" aria-labelledby="nav-three-tab">
 
                     <div class="latest-items-active">
-
+                        {% for baby in babies %}
                         <div class="properties pb-30">
                             <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest1.jpg' %}" alt></a>
+                                <div class="properties-img" style="position: relative;">
+                                    <a href="/store/product_detail/{{ baby.id }}"><img src="{{ baby.image.url}}"
+                                                                                       alt></a>
                                     <div class="socal_icon">
                                         <a href="#"><i class="ti-shopping-cart"></i></a>
                                         <a href="#"><i class="ti-heart"></i></a>
@@ -392,311 +227,21 @@
                                     </div>
                                 </div>
                                 <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
+                                    <h3><a href="/store/product_detail/{{ baby.id }}">{{ baby.name }}</a></h3>
                                     <div class="properties-footer">
                                         <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
+                                            <span>${{ baby.price_with_discount }}<span>${{ baby.price }}</span></span>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest2.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest3.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest4.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest2.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest4.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="nav-four" role="tabpanel" aria-labelledby="nav-four-tab">
-
-                    <div class="latest-items-active">
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest1.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest2.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest3.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest4.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest2.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="properties pb-30">
-                            <div class="properties-card">
-                                <div class="properties-img">
-                                    <a href="pro-details.html"><img src="{% static 'img/gallery/latest4.jpg' %}" alt></a>
-                                    <div class="socal_icon">
-                                        <a href="#"><i class="ti-shopping-cart"></i></a>
-                                        <a href="#"><i class="ti-heart"></i></a>
-                                        <a href="#"><i class="ti-zoom-in"></i></a>
-                                    </div>
-                                </div>
-                                <div class="properties-caption properties-caption2">
-                                    <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                                    <div class="properties-footer">
-                                        <div class="price">
-                                            <span>$98.00 <span>$120.00</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-
-    <div class="testimonial-area testimonial-padding">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-10 col-lg-10 col-md-11">
-                    <div class="h1-testimonial-active">
-
-                        <div class="single-testimonial text-center">
-                            <div class="testimonial-caption ">
-                                <div class="testimonial-top-cap">
-                                    <h2>Customer Testimonial</h2>
-                                    <p>Everybody is different, which is why we offer styles for every body. Laborum fuga
-                                        incidunt laboriosam voluptas iure, delectus dignissimos facilis neque nulla
-                                        earum.</p>
-                                </div>
-
-                                <div class="testimonial-founder d-flex align-items-center justify-content-center">
-                                    <div class="founder-img">
-                                        <img src="{% static 'img/gallery/founder-img.png' %}" alt>
-                                    </div>
-                                    <div class="founder-text">
-                                        <span>Petey Cruiser</span>
-                                        <p>Designer at Colorlib</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="single-testimonial text-center">
-                            <div class="testimonial-caption ">
-                                <div class="testimonial-top-cap">
-                                    <h2>Customer Testimonial</h2>
-                                    <p>Everybody is different, which is why we offer styles for every body. Laborum fuga
-                                        incidunt laboriosam voluptas iure, delectus dignissimos facilis neque nulla
-                                        earum.</p>
-                                </div>
-
-                                <div class="testimonial-founder d-flex align-items-center justify-content-center">
-                                    <div class="founder-img">
-                                        <img src="{% static 'img/gallery/founder-img.png' %}" alt>
-                                    </div>
-                                    <div class="founder-text">
-                                        <span>Petey Cruiser</span>
-                                        <p>Designer at Colorlib</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     <section class="latest-items section-padding fix">
         <div class="row">
@@ -708,132 +253,64 @@
         </div>
         <div class="container">
             <div class="latest-items-active">
-
+                {% for liked in might_like_product %}
                 <div class="properties pb-30">
                     <div class="properties-card">
-                        <div class="properties-img">
-                            <a href="pro-details.html"><img src="{% static 'img/gallery/latest5.jpg' %}" alt></a>
-                            <div class="socal_icon">
-                                <a href="#"><i class="ti-shopping-cart"></i></a>
-                                <a href="#"><i class="ti-heart"></i></a>
-                                <a href="#"><i class="ti-zoom-in"></i></a>
+                        <div class="properties-img" style="position: relative;">
+                            <a href="/store/product_detail/{{ liked.id }}"><img src="{{ liked.image.url }}"
+                                                                                style="width: 310px; height: 335px; object-fit: cover;"
+                                                                                alt></a>
+                            {% if liked.discount > 0 %}
+                            <div style="color: white; background: red; width: 50px; height: 23px; text-align: center;border-radius: 5px; position: absolute; top: 10px; right: 10px;">
+                                -{{ liked.discount }}%
+                            </div>
+                            {% endif %}
+                            {% if liked.product_quantity == 0 %}
+                            <div style="position: absolute; top: 0px; left: 0px; z-index: 1;">
+                                <img src="{% static 'img/logo/sold-out.png' %}" alt="Sold Out"
+                                     style="width: 80px; height: 80px;">
+                            </div>
+                            {% endif %}
+                            <div class="socal_icon" style="position: absolute; bottom: 15px; right: 15px; z-index: 100;">
+                                {% if liked.product_quantity == 0 %}
+                                <a href="/store/like?product_id={{ liked.id }}">
+                                    <ion-icon {% if not liked.id in liked_product %}
+                                              style="font-size: 28px; position: relative; top: 5px"
+                                              name="heart-empty" {% else %}
+                                              style="font-size: 28px; position: relative; top: 5px; color: #262626;"
+                                              name="heart" {% endif %}></ion-icon>
+                                </a>
+                                {% else %}
+                                {% if not liked.id in saved_cart %}
+                                <a href="/store/cart_add?product_id={{ liked.id }}"><i class="bi bi-cart"></i></a>
+                                {% else %}
+                                <a href="/store/cart_add?product_id={{ liked.id }}"><i class="bi bi-cart-fill"></i></a>
+                                {% endif %}
+                                <a href="/store/like?product_id={{ liked.id }}">
+                                    <ion-icon {% if not liked.id in liked_product %}
+                                              style="font-size: 28px; position: relative; top: 5px"
+                                              name="heart-empty" {% else %}
+                                              style="font-size: 28px; position: relative; top: 5px; color: #262626;"
+                                              name="heart" {% endif %}></ion-icon>
+                                </a>
+                                {% endif %}
                             </div>
                         </div>
-                        <div class="properties-caption properties-caption2">
-                            <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                            <div class="properties-footer">
+                        <div class="properties-caption properties-caption2" style="margin-top: 10px; text-align: center;">
+                            <h3><a href="/store/product_detail/{{ liked.id }}">{{ liked.name }}</a></h3>
+                            <div class="properties-footer" style="position: relative;">
                                 <div class="price">
-                                    <span>$98.00 <span>$120.00</span></span>
+                                    {% if liked.discount == 0 %}
+                                    <span>${{ liked.price }} </span>
+                                    {% else %}
+                                    <span>${{ liked.price_with_discount }} <span>${{ liked.price }} </span></span>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="properties pb-30">
-                    <div class="properties-card">
-                        <div class="properties-img">
-                            <a href="pro-details.html"><img src="{% static 'img/gallery/latest6.jpg' %}" alt></a>
-                            <div class="socal_icon">
-                                <a href="#"><i class="ti-shopping-cart"></i></a>
-                                <a href="#"><i class="ti-heart"></i></a>
-                                <a href="#"><i class="ti-zoom-in"></i></a>
-                            </div>
-                        </div>
-                        <div class="properties-caption properties-caption2">
-                            <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                            <div class="properties-footer">
-                                <div class="price">
-                                    <span>$98.00 <span>$120.00</span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="properties pb-30">
-                    <div class="properties-card">
-                        <div class="properties-img">
-                            <a href="pro-details.html"><img src="{% static 'img/gallery/latest7.jpg' %}" alt></a>
-                            <div class="socal_icon">
-                                <a href="#"><i class="ti-shopping-cart"></i></a>
-                                <a href="#"><i class="ti-heart"></i></a>
-                                <a href="#"><i class="ti-zoom-in"></i></a>
-                            </div>
-                        </div>
-                        <div class="properties-caption properties-caption2">
-                            <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                            <div class="properties-footer">
-                                <div class="price">
-                                    <span>$98.00 <span>$120.00</span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="properties pb-30">
-                    <div class="properties-card">
-                        <div class="properties-img">
-                            <a href="pro-details.html"><img src="{% static 'img/gallery/latest8.jpg' %}" alt></a>
-                            <div class="socal_icon">
-                                <a href="#"><i class="ti-shopping-cart"></i></a>
-                                <a href="#"><i class="ti-heart"></i></a>
-                                <a href="#"><i class="ti-zoom-in"></i></a>
-                            </div>
-                        </div>
-                        <div class="properties-caption properties-caption2">
-                            <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                            <div class="properties-footer">
-                                <div class="price">
-                                    <span>$98.00 <span>$120.00</span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="properties pb-30">
-                    <div class="properties-card">
-                        <div class="properties-img">
-                            <a href="pro-details.html"><img src="{% static 'img/gallery/latest6.jpg' %}" alt></a>
-                            <div class="socal_icon">
-                                <a href="#"><i class="ti-shopping-cart"></i></a>
-                                <a href="#"><i class="ti-heart"></i></a>
-                                <a href="#"><i class="ti-zoom-in"></i></a>
-                            </div>
-                        </div>
-                        <div class="properties-caption properties-caption2">
-                            <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                            <div class="properties-footer">
-                                <div class="price">
-                                    <span>$98.00 <span>$120.00</span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="properties pb-30">
-                    <div class="properties-card">
-                        <div class="properties-img">
-                            <a href="pro-details.html"><img src="{% static 'img/gallery/latest7.jpg' %}" alt></a>
-                            <div class="socal_icon">
-                                <a href="#"><i class="ti-shopping-cart"></i></a>
-                                <a href="#"><i class="ti-heart"></i></a>
-                                <a href="#"><i class="ti-zoom-in"></i></a>
-                            </div>
-                        </div>
-                        <div class="properties-caption properties-caption2">
-                            <h3><a href="pro-details.html">Cashmere Tank + Bag</a></h3>
-                            <div class="properties-footer">
-                                <div class="price">
-                                    <span>$98.00 <span>$120.00</span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -850,49 +327,22 @@
                 </div>
             </div>
             <div class="row">
+                {% for tips in fashion_tips %}
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="single-blogs mb-30">
                         <div class="blog-img">
-                            <a href="pro-details.html"><img src="{% static 'img/gallery/blog1.jpg' %}" alt></a>
+                            <a href="/blog/blog/{{ tips.id }}"><img src="{{ tips.image.url }}" alt="Product Image"
+                                                                    height="300"></a>
                         </div>
                         <div class="blogs-cap">
                             <span>Fashion Tips</span>
-                            <h5><a href="pro-details.html">What Curling Irons Are The Best Ones</a></h5>
-                            <p>Consectetur adipisicing elit. Laborum fuga incidunt laboriosam voluptas iure,
-                                delectus..</p>
-                            <a href="pro-details.html" class="red-btn">Read More</a>
+                            <h5><a href="/blog/blog/{{ tips.id }}">{{ tips.title }}</a></h5>
+                            <p>{{ tips.description|truncatewords:15 }}</p>
+                            <a href="/blog/blog/{{ tips.id }}" class="red-btn">Read More</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-blogs mb-30">
-                        <div class="blog-img">
-                            <a href="pro-details.html"><img src="{% static 'img/gallery/blog2.jpg' %}" alt></a>
-                        </div>
-                        <div class="blogs-cap">
-                            <span>Fashion Tips</span>
-                            <h5><a href="pro-details.html">Vogue's Ultimate Guide To Autumn/
-                                Winter 2019 Shoes</a></h5>
-                            <p>Consectetur adipisicing elit. Laborum fuga incidunt laboriosam voluptas iure,
-                                delectus..</p>
-                            <a href="pro-details.html" class="red-btn">Read More</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-blogs mb-30">
-                        <div class="blog-img">
-                            <a href="pro-details.html"><img src="{% static 'img/gallery/blog3.jpg' %}" alt></a>
-                        </div>
-                        <div class="blogs-cap">
-                            <span>Fashion Tips</span>
-                            <h5><a href="pro-details.html">What Curling Irons Are The Best Ones</a></h5>
-                            <p>Consectetur adipisicing elit. Laborum fuga incidunt laboriosam voluptas iure,
-                                delectus..</p>
-                            <a href="pro-details.html" class="red-btn">Read More</a>
-                        </div>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </section>
@@ -950,4 +400,52 @@
     </div>
 
 </main>
+<!--<script>-->
+<!--    .latest-items-active {-->
+<!--        display: flex;-->
+<!--        flex-wrap: wrap; /* Allow items to wrap */-->
+<!--        justify-content: space-between; /* Adjust spacing */-->
+<!--        gap: 20px; /* Add spacing between items */-->
+<!--    }-->
+
+<!--    .properties {-->
+<!--        flex: 1 1 calc(33.333% - 20px); /* 3 items per row with gaps */-->
+<!--        box-sizing: border-box; /* Ensure padding/margin is included */-->
+<!--    }-->
+
+<!--    /* Optional: Adjust for smaller screens */-->
+<!--    @media (max-width: 768px) {-->
+<!--        .properties {-->
+<!--            flex: 1 1 100%; /* Stack items on smaller screens */-->
+<!--        }-->
+<!--    }-->
+<!--    .properties-img {-->
+<!--        width: 100%;-->
+<!--        height: auto; /* Maintain aspect ratio */-->
+<!--    }-->
+<!--    .properties {-->
+<!--        margin-bottom: 20px; /* Add spacing between rows */-->
+<!--    }-->
+<!--    .properties {-->
+<!--        flex: 1 1 calc(33.333% - 20px); /* 3 items per row */-->
+<!--        box-sizing: border-box;-->
+<!--    }-->
+
+<!--    .properties-card {-->
+<!--        background: #fff;-->
+<!--        padding: 10px;-->
+<!--        border: 1px solid #ddd;-->
+<!--        border-radius: 5px;-->
+<!--    }-->
+
+<!--    .properties-img img {-->
+<!--        width: 100%;-->
+<!--        height: auto; /* Maintain aspect ratio */-->
+<!--    }-->
+
+<!--    .properties-caption {-->
+<!--        text-align: center;-->
+<!--        margin-top: 10px;-->
+<!--    }-->
+<!--</script>-->
 {% endblock %}

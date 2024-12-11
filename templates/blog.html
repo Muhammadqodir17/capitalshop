@@ -1,7 +1,7 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 {% block content %}
-    <main>
+<main>
 
     <div class="hero-area section-bg2">
         <div class="container">
@@ -13,8 +13,8 @@
                                 <h2>Blog</h2>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb justify-content-center">
-                                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="#">Blog</a></li>
+                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="/blog/">Blog</a></li>
                                     </ol>
                                 </nav>
                             </div>
@@ -32,46 +32,55 @@
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <div class="blog_left_sidebar">
                         {% for post in posts %}
-                            <article class="blog_item">
+                        <article class="blog_item">
                             <div class="blog_item_img">
-                                <img class="card-img rounded-0" src="{{ post.image.url }}" alt>
-                                <a href="#" class="blog_item_date">
-                                    <h3>15</h3>
-                                    <p>Jan</p>
-                                </a>
+                                <a href="/blog/blog/{{ post.id }}"><img class="card-img rounded-0"
+                                                                        src="{{ post.image.url }}" alt></a>
                             </div>
                             <div class="blog_details">
-                                <a class="d-inline-block" href="{{ post.id }}">
+                                <a class="d-inline-block" href="/blog/blog/{{ post.id }}">
                                     <h2 class="blog-head" style="color: #2d2d2d;">{{ post.title }}</h2>
                                 </a>
                                 <p>{{ post.description|truncatewords:25}}</p>
                                 <ul class="blog-info-link">
                                     {% for tag in post.tag.all %}
-                                         <li><a href="#">{{ tag.name }}<i class="fa fa-user"></i></a></li>
+                                    <li><a href="/blog/?tag={{ tag.id }}"><i class="fa fa-user"></i>{{ tag.name }}</a>
+                                    </li>
                                     {% endfor %}
-                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                                    <li><i class="fa fa-comments"></i>Comments {{ post.comment_count }}</li>
+                                    <li><i class="fa fa-calendar"></i>{{ post.created_at }}</li>
                                 </ul>
                             </div>
                         </article>
                         {% endfor %}
                         <nav class="blog-pagination justify-content-center d-flex">
                             <ul class="pagination">
+                                {% if page.has_previous %}
                                 <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Previous">
+                                    <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key}}={{ value }}&{% endif %}{% endfor %}page={{ page.previous_page_number }}" class="page-link"
+                                       aria-label="Previous">
                                         <i class="ti-angle-left"></i>
                                     </a>
                                 </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">1</a>
-                                </li>
+                                {% endif %}
+                                {% for pagee in page.paginator.page_range %}
+                                {% if page.number == pagee %}
                                 <li class="page-item active">
-                                    <a href="#" class="page-link">2</a>
+                                    <a class="page-link">{{ pagee }}</a>
                                 </li>
+                                {% else %}
                                 <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Next">
+                                    <a class="page-link" href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key}}={{ value }}&{% endif %}{% endfor %}page={{ pagee }}">{{ pagee }}</a>
+                                </li>
+                                {% endif %}
+                                {% endfor %}
+                                {% if page.has_next %}
+                                <li class="page-item">
+                                    <a href="?{% for key, value in request.GET.items %}{% if key != 'page' %}{{ key}}={{ value }}&{% endif %}{% endfor %}page={{ page.next_page_number }}" class="page-link" aria-label="Next">
                                         <i class="ti-angle-right"></i>
                                     </a>
                                 </li>
+                                {% endif %}
                             </ul>
                         </nav>
                     </div>
@@ -90,74 +99,45 @@
                                 </div>
                             </form>
                         </aside>
-                        <aside class="single_sidebar_widget tag_cloud_widget">
-                            <h4 class="widget_title" style="color: #2d2d2d;">Tag Clouds</h4>
-                            <ul class="list">
+                        <aside class="single_sidebar_widget post_category_widget">
+                            <h4 class="widget_title" style="color: #2d2d2d;">Category</h4>
+                            <ul class="list cat-list">
+                                {% for cat in categories %}
                                 <li>
-                                    <a href="#">project</a>
+                                    <a href="/blog/?cat={{ cat.id }}" class="d-flex">
+                                        <p>{{ cat.name }}</p>
+                                    </a>
                                 </li>
-                                <li>
-                                    <a href="#">love</a>
-                                </li>
-                                <li>
-                                    <a href="#">technology</a>
-                                </li>
-                                <li>
-                                    <a href="#">travel</a>
-                                </li>
-                                <li>
-                                    <a href="#">restaurant</a>
-                                </li>
-                                <li>
-                                    <a href="#">life style</a>
-                                </li>
-                                <li>
-                                    <a href="#">design</a>
-                                </li>
-                                <li>
-                                    <a href="#">illustration</a>
-                                </li>
+                                {% endfor %}
                             </ul>
                         </aside>
                         <aside class="single_sidebar_widget popular_post_widget">
-                            <h3 class="widget_title" style="color: #2d2d2d;">Recent Post</h3>
+                            <h3 class="widget_title" style="color: #2d2d2d;">Popular Post</h3>
+                            {% for popular_post in popular_posts %}
                             <div class="media post_item">
-                                <img src="assets/img/post/post_1.jpg" alt="post">
-                                <div class="media-body">
-                                    <a href="blog_details.html">
-                                        <h3 style="color: #2d2d2d;">From life was you fish...</h3>
-                                    </a>
-                                    <p>January 12, 2019</p>
-                                </div>
+                                <a href="/blog/blog/{{ popular_post.id }}"> <img src="{{ popular_post.image.url }}"
+                                                                                 style="width: 80px; height: 80px;"
+                                                                                 alt="post">
+                                    <div class="media-body">
+                                        <a href="/blog/blog/{{ popular_post.id }}">
+                                            <h3 style="color: #2d2d2d;">{{ popular_post.title }}</h3>
+                                        </a>
+                                        <p>{{ popular_post.created_at }}</p>
+                                    </div>
                             </div>
-                            <div class="media post_item">
-                                <img src="assets/img/post/post_2.jpg" alt="post">
-                                <div class="media-body">
-                                    <a href="blog_details.html">
-                                        <h3 style="color: #2d2d2d;">The Amazing Hubble</h3>
-                                    </a>
-                                    <p>02 Hours ago</p>
-                                </div>
-                            </div>
-                            <div class="media post_item">
-                                <img src="assets/img/post/post_3.jpg" alt="post">
-                                <div class="media-body">
-                                    <a href="blog_details.html">
-                                        <h3 style="color: #2d2d2d;">Astronomy Or Astrology</h3>
-                                    </a>
-                                    <p>03 Hours ago</p>
-                                </div>
-                            </div>
-                            <div class="media post_item">
-                                <img src="assets/img/post/post_4.jpg" alt="post">
-                                <div class="media-body">
-                                    <a href="blog_details.html">
-                                        <h3 style="color: #2d2d2d;">Asteroids telescope</h3>
-                                    </a>
-                                    <p>01 Hours ago</p>
-                                </div>
-                            </div>
+                            {% endfor %}
                         </aside>
+                        <aside class="single_sidebar_widget tag_cloud_widget">
+                            <h4 class="widget_title" style="color: #2d2d2d;">Tag Clouds</h4>
+                            <ul class="list">
+                                {% for tag in tags %}
+                                <li>
+                                    <a href="/blog/?tag={{ tag.id }}">{{ tag.name }}</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </aside>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,21 +1,31 @@
 from django.db import models
-from ckeditor.fields import RichTextField
 from config.base_models import BaseModel
+from authentication.models import User
 
 
 class Tag(BaseModel):
-    name = models.CharField(max_length=60)
-    
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
+class Category(BaseModel):
+    name = models.CharField(max_length=100)
+
     def __str__(self):
         return self.name
 
 
 class Post(BaseModel):
-    objects = None
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=120)
-    image = models.ImageField(upload_to='posts/')
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tag = models.ManyToManyField(Tag)
-    description = RichTextField()
+    image = models.ImageField(upload_to='posts/')
+    description = models.TextField()
+    view_count = models.PositiveIntegerField(default=0)
+    comment_count = models.PositiveIntegerField(default=0)
 
     is_published = models.BooleanField(default=True)
 
@@ -23,16 +33,22 @@ class Post(BaseModel):
         return self.title
 
 
-class Comment(models.Model):
+class BlogComment(BaseModel):
     objects = None
     post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
-    name = models.CharField(max_length=100)
-    email = models.EmailField(blank=True, null=True)
-    message = models.TextField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
+    message = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return f'{self.user}'
 
 
+class Contact(BaseModel):
+    message = models.TextField()
+    email = models.EmailField()
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return f"{self.name}"

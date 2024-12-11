@@ -1,3 +1,6 @@
-from django.test import TestCase
+a = 'root1234'
+if not any(char.isdigit() for char in a) or not any(char in a for char in '_.'):
+    pass
 
-# Create your tests here.
+print(any(char.isdigit() for char in a))
+print(any(char in a for char in '_.'))

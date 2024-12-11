@@ -1,100 +1,128 @@
+{% load static %}
+{% load socialaccount %}
 <!doctype html>
 <html class="no-js" lang="zxx">
 
-<!-- Mirrored from preview.colorlib.com/theme/capitalshop/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 15:19:04 GMT -->
+<!-- Mirrored from preview.colorlib.com/theme/capitalshop/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 14 Oct 2024 11:46:17 GMT -->
 <head>
-<meta charset="utf-8">
-<meta http-equiv="x-ua-compatible" content="ie=edge">
-<title>Shop | eCommers</title>
-<meta name="description" content>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="shortcut icon" type="image/x-icon" href="assets/img/icon/favicon.png">
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Shop | eCommers</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/icon/favicon.png' %}">
 
-<link rel="stylesheet" href="assets/css/bootstrap.min.css">
-<link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-<link rel="stylesheet" href="assets/css/slicknav.css">
-<link rel="stylesheet" href="assets/css/flaticon.css">
-<link rel="stylesheet" href="assets/css/animate.min.css">
-<link rel="stylesheet" href="assets/css/price_rangs.css">
-<link rel="stylesheet" href="assets/css/magnific-popup.css">
-<link rel="stylesheet" href="assets/css/fontawesome-all.min.css">
-<link rel="stylesheet" href="assets/css/themify-icons.css">
-<link rel="stylesheet" href="assets/css/slick.css">
-<link rel="stylesheet" href="assets/css/nice-select.css">
-<link rel="stylesheet" href="assets/css/style.css">
-<script nonce="9c614a1c-f77b-4a6d-9b5e-25339d540b1d">try{(function(w,d){!function(o,p,q,r){o[q]=o[q]||{};o[q].executed=[];o.zaraz={deferred:[],listeners:[]};o.zaraz.q=[];o.zaraz._f=function(s){return async function(){var t=Array.prototype.slice.call(arguments);o.zaraz.q.push({m:s,a:t})}};for(const u of["track","set","debug"])o.zaraz[u]=o.zaraz._f(u);o.zaraz.init=()=>{var v=p.getElementsByTagName(r)[0],w=p.createElement(r),x=p.getElementsByTagName("title")[0];x&&(o[q].t=p.getElementsByTagName("title")[0].text);o[q].x=Math.random();o[q].w=o.screen.width;o[q].h=o.screen.height;o[q].j=o.innerHeight;o[q].e=o.innerWidth;o[q].l=o.location.href;o[q].r=p.referrer;o[q].k=o.screen.colorDepth;o[q].n=p.characterSet;o[q].o=(new Date).getTimezoneOffset();if(o.dataLayer)for(const B of Object.entries(Object.entries(dataLayer).reduce(((C,D)=>({...C[1],...D[1]})),{})))zaraz.set(B[0],B[1],{scope:"page"});o[q].q=[];for(;o.zaraz.q.length;){const E=o.zaraz.q.shift();o[q].q.push(E)}w.defer=!0;for(const F of[localStorage,sessionStorage])Object.keys(F||{}).filter((H=>H.startsWith("_zaraz_"))).forEach((G=>{try{o[q]["z_"+G.slice(7)]=JSON.parse(F.getItem(G))}catch{o[q]["z_"+G.slice(7)]=F.getItem(G)}}));w.referrerPolicy="origin";w.src="https://preview.colorlib.com/cdn-cgi/zaraz/s.js?z="+btoa(encodeURIComponent(JSON.stringify(o[q])));v.parentNode.insertBefore(w,v)};["complete","interactive"].includes(p.readyState)?zaraz.init():o.addEventListener("DOMContentLoaded",zaraz.init)}(w,d,"zarazData","script");})(window,document)}catch(e){throw fetch("/cdn-cgi/zaraz/t"),e;};</script></head>
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/price_rangs.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
 <body>
-<main class="login-bg">
+<main class="login-bg" xmlns="http://www.w3.org/1999/html">
 
-<div class="login-form-area">
-<div class="login-form">
+    <div class="login-form-area">
+        <div class="login-form">
 
-<div class="login-heading">
-<span>Login</span>
-<p>Enter Login details to get access</p>
-</div>
-
-<div class="input-box">
-<div class="single-input-fields">
-<label>Username or Email Address</label>
-<input type="text" placeholder="Username / Email address">
-</div>
-<div class="single-input-fields">
-<label>Password</label>
-<input type="password" placeholder="Enter Password">
-</div>
-<div class="single-input-fields login-check">
-<input type="checkbox" id="fruit1" name="keep-log">
-<label for="fruit1">Keep me logged in</label>
-<a href="#" class="f-right">Forgot Password?</a>
-</div>
-</div>
-
-<div class="login-footer">
-<p>Don’t have an account? <a href="register.html">Sign Up</a> here</p>
-<button class="submit-btn3">Login</button>
-</div>
-</div>
-</div>
+            <div class="login-heading">
+                <span>Login</span>
+                <p>Enter Login details to get access</p>
+            </div>
+            <div class="input-box">
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="single-input-fields">
+                        <label>Username</label>
+                        <div>
+                            <style>
+                                h6{
+                                    color: red;
+                                }
+                            </style>
+                            <h6>{{ message }}</h6>
+                        </div>
+                        <input name="username" type="text" placeholder="Username">
+                    </div>
+                    <div class="single-input-fields">
+                        <label>Password</label>
+                        <input name="password" type="password" placeholder="Enter Password">
+                    </div>
+<!--                    <div class="single-input-fields login-check">-->
+<!--                        <input type="checkbox" id="fruit1" name="keep-log">-->
+<!--                        <label for="fruit1">Keep me logged in</label>-->
+<!--                        <a href="#" class="f-right">Forgot Password?</a>-->
+<!--                    </div>-->
+                    <div class="login-footer">
+                        <p>Don’t have an account? <a href="/auth/register/">Sign Up</a> here</p>
+                        <button class="submit-btn3">Login</button>
+                    </div>
+<!--                    <a class="btn btn-success" href="{% provider_login_url 'google'%}"><i class="bi bi-google"></i></a>-->
+                </form>
+            </div>
+        </div>
+    </div>
 
 </main>
+<script src="{% static 'js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
 
 
-<script src="assets/js/vendor/modernizr-3.5.0.min.js"></script>
-<script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-<script src="assets/js/popper.min.js"></script>
-<script src="assets/js/bootstrap.min.js"></script>
+<!-- Slick-slider , Owl-Carousel ,slick-nav -->
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/slick.min.js' %}"></script>
+<script src="{% static 'js/jquery.slicknav.min.js' %}"></script>
 
-<script src="assets/js/owl.carousel.min.js"></script>
-<script src="assets/js/slick.min.js"></script>
-<script src="assets/js/jquery.slicknav.min.js"></script>
+<!--wow , counter , waypoint, Nice-select -->
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.js' %}"></script>
+<script src="{% static 'js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'js/waypoints.min.js' %}"></script>
+<script src="{% static 'js/price_rangs.js' %}"></script>
 
-<script src="assets/js/wow.min.js"></script>
-<script src="assets/js/jquery.magnific-popup.js"></script>
-<script src="assets/js/jquery.nice-select.min.js"></script>
-<script src="assets/js/jquery.counterup.min.js"></script>
-<script src="assets/js/waypoints.min.js"></script>
-<script src="assets/js/price_rangs.js"></script>
+<!-- contact js -->
+<script src="{% static 'js/contact.js' %}"></script>
+<script src="{% static 'js/jquery.form.js' %}"></script>
+<script src="{% static 'js/jquery.validate.min.js' %}"></script>
+<script src="{% static 'js/mail-script.js' %}"></script>
+<script src="{% static 'js/jquery.ajaxchimp.min.js' %}"></script>
 
-<script src="assets/js/contact.js"></script>
-<script src="assets/js/jquery.form.js"></script>
-<script src="assets/js/jquery.validate.min.js"></script>
-<script src="assets/js/mail-script.js"></script>
-<script src="assets/js/jquery.ajaxchimp.min.js"></script>
+<!--  Plugins, main-Jquery -->
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
-<script src="assets/js/plugins.js"></script>
-<script src="assets/js/main.js"></script>
 
+<!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
 
-        gtag('config', 'UA-23581568-13');
-    </script>
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317" integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA==" data-cf-beacon='{"rayId":"8545cbe8bfff715e","b":1,"version":"2024.2.0","token":"cd0b4b3a733644fc843ef0b185f98241"}' crossorigin="anonymous"></script>
+    gtag('config', 'UA-23581568-13');
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon='{"rayId":"8d2752e608f66a8f","version":"2024.10.1","serverTiming":{"name":{"cfExtPri":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"cd0b4b3a733644fc843ef0b185f98241","b":1}'
+        crossorigin="anonymous"></script>
 </body>
 
-<!-- Mirrored from preview.colorlib.com/theme/capitalshop/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 15:19:05 GMT -->
+<!-- Mirrored from preview.colorlib.com/theme/capitalshop/register.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 14 Oct 2024 11:46:17 GMT -->
 </html>
+

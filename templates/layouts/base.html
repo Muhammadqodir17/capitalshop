@@ -1,4 +1,4 @@
-<!doctype html>
+<!Doctype html>
 {% load static %}
 <html class="no-js" lang="zxx">
 
@@ -23,6 +23,49 @@
     <link rel="stylesheet" href="{% static 'css/slick.css' %}">
     <link rel="stylesheet" href="{% static 'css/nice-select.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .rating-wrapper {
+            display: flex; /* Aligns stars horizontally */
+            direction: rtl; /* Ensures left-to-right direction */
+        }
+
+        .rating-wrapper input {
+            display: none; /* Hides the radio buttons */
+        }
+
+        .rating-wrapper label {
+            font-size: 24px;
+            color: lightgray; /* Default color for stars */
+            cursor: pointer;
+            margin: 0; /* No space between stars */
+        }
+
+        /* Fill stars up to and including the checked one */
+        .rating-wrapper input:checked ~ label {
+            color: gold; /* Color for selected stars */
+        }
+
+        /* Fill stars up to and including the checked one */
+        .rating-wrapper input:checked ~ label ~ label {
+            color: gold; /* Color for previously selected stars */
+        }
+
+        .stars-container {
+            display: flex; /* Aligns items horizontally */
+            flex-direction: column; /* Aligns items vertically */
+            align-items: flex-start; /* Aligns items to the left */
+            margin-top: 10px; /* Space above stars container */
+        }
+
+        .stars-label {
+            font-weight: bold;
+            margin-bottom: 5px; /* Space between label and stars */
+        }
+    </style>
+
     <script nonce="f4643259-d23d-4138-aaa8-e7e4d7996b39">try {
         (function (w, d) {
             !function (o, p, q, r) {
@@ -75,7 +118,13 @@
     } catch (e) {
         throw fetch("/cdn-cgi/zaraz/t"), e;
     }
-    ;</script>
+    ;
+    </script>
+    <style>
+        .hover-effect:hover {
+            color: red;
+        }
+    </style>
 </head>
 <body>
 
@@ -99,16 +148,16 @@
                         <div class="d-flex justify-content-between flex-wrap align-items-center">
                             <div class="header-info-left">
                                 <ul>
-                                    <li><a href="#">About Us</a></li>
-                                    <li><a href="#">Privacy</a></li>
-                                    <li><a href="#">FAQ</a></li>
-                                    <li><a href="#">Careers</a></li>
+                                    <li><a href="/store/about">About Us</a></li>
+                                    <li><a href="/store/privacy">Privacy</a></li>
+                                    <li><a href="/store/faq">FAQ</a></li>
+                                    <li><a href="/store/support">Support</a></li>
                                 </ul>
                             </div>
                             <div class="header-info-right d-flex">
                                 <ul class="order-list">
-                                    <li><a href="#">My Wishlist</a></li>
-                                    <li><a href="#">Track Your Order</a></li>
+                                    <li><a href="/store/wishlist">My Wishlist</a></li>
+                                    <li><a href="/store/checkout">Track Your Order</a></li>
                                 </ul>
                                 <ul class="header-social">
                                     <li><a href="#"><i class="fab fa-facebook"></i></a></li>
@@ -135,24 +184,28 @@
                         <nav>
                             <ul id="navigation">
                                 <li><a href="/">Home</a></li>
-                                <li><a href="/categories/">Men</a></li>
-                                <li><a href="/categories/">Women</a></li>
-                                <li class="new"><a href="/categories/">Baby Collection</a></li>
-                                <li><a href="#">Pages <i class="fas fa-angle-down"></i></a>
-                                    <ul class="submenu">
-                                        <li><a href="/login/">Login</a></li>
-                                        <li><a href="/cart/">Cart</a></li>
-                                        <li><a href="/pro-details/">Product Details</a></li>
-                                        <li><a href="/checkout/">Product Checkout</a></li>
-                                    </ul>
-                                </li>
+                                <li><a href="/store/men_products/">Men</a></li>
+                                <li><a href="/store/women_products/">Women</a></li>
+                                <!--                                <li class="new"><a href="/store/men_products/">Baby Collection</a></li>-->
+                                <li><a href="/store/baby_products/">Baby Collection</a></li>
+                                <!--                                <li><a href="/auth/login/">Login <i class="fas fa-angle-down"></i></a>-->
+                                <!--                                    <ul class="submenu">-->
+                                <!--                                        <li><a href="/auth/logout/">Logout</a></li>-->
+                                <!--&lt;!&ndash;                                        <li><a href="/store/checkout/">Product Checkout</a></li>&ndash;&gt;-->
+                                <!--                                    </ul>-->
+                                <!--                                </li>-->
                                 <li><a href="/blog/">Blog</a>
-                                    <ul class="submenu">
-                                        <li><a href="/blog/">Blog</a></li>
-                                        <li><a href="/elements/">Element</a></li>
-                                    </ul>
+                                    <!--                                    <ul class="submenu">-->
+                                    <!--                                        <li><a href="/blog/">Blog</a></li>-->
+                                    <!--                                        <li><a href="/store/elements/">Element</a></li>-->
+                                    <!--                                    </ul>-->
                                 </li>
                                 <li><a href="/contact/">Contact</a></li>
+<!--                                {% if auth == None %}-->
+<!--                                <li><a href="/auth/login/">Login</a></li>-->
+<!--                                {% else %}-->
+<!--                                <li><a href="/auth/logout/">Logout</a></li>-->
+<!--                                {% endif %}-->
                             </ul>
                         </nav>
                     </div>
@@ -161,13 +214,29 @@
                         <ul>
                             <li>
                                 <div class="nav-search search-switch hearer_icon">
-                                    <a id="search_1" href="javascript:void(0)">
-                                        <span class="flaticon-search"></span>
-                                    </a>
+                                    <form method="POST" action="{% url 'search' %}">
+                                        {% csrf_token %}
+                                        <a id="search_1" href="javascript:void(0)">
+                                            <span class="flaticon-search"></span>
+                                        </a>
+                                    </form>
                                 </div>
                             </li>
-                            <li><a href="/login/"><span class="flaticon-user"></span></a></li>
-                            <li class="cart"><a href="/cart/"><span class="flaticon-shopping-cart"></span></a></li>
+                            {% if cart_num == 0 %}
+                            <li><a href="/cart/"><span class="flaticon-shopping-cart"></span></a></li>
+                            {% else %}
+                            <li id="cart_num" class="cart" data-cart-count="{{ cart_num }}"><a href="/cart/"><span
+                                    class="flaticon-shopping-cart"></span></a></li>
+                            {% endif %}
+
+                            <li>
+                                <a href="/auth/profile">
+                                    <span class="flaticon-user"></span>
+                                </a>
+                            </li>
+
+                            <!--                            <li class="cart"><a href="/auth/logout/"><ion-icon style="width: 28px; height: 28px; margin-top: 2px; margin-left: 10px; color: #4d4d4d" name="log-out"><span class="flaticon-shopping-cart"></span></ion-icon></a></li>-->
+                            <!--                            <a class="a-hover-red" href="/auth/logout/"><ion-icon style="width: 28px; height: 28px; margin-top: 2px; margin-left: 10px; color: #4d4d4d" name="log-out"></ion-icon></a>-->
                         </ul>
                     </div>
                 </div>
@@ -288,7 +357,7 @@
                             <div class="footer-tittle">
                                 <h4>Quick Links</h4>
                                 <ul>
-                                    <li><a href="#">Track Your Order</a></li>
+                                    <li><a href="/store/checkout">Track Your Order</a></li>
                                     <li><a href="#">Support</a></li>
                                     <li><a href="#">FAQ</a></li>
                                     <li><a href="#">Carrier</a></li>
@@ -359,6 +428,8 @@
 <script src="{% static 'js/plugins.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 
+<script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
 <script>
     window.dataLayer = window.dataLayer || [];
@@ -376,6 +447,7 @@
         data-cf-beacon='{"rayId":"8545cb769f682119","b":1,"version":"2024.2.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
         crossorigin="anonymous"></script>
 </body>
+
 
 <!-- Mirrored from preview.colorlib.com/theme/capitalshop/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 15:18:10 GMT -->
 </html>
