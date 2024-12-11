@@ -35,9 +35,9 @@ class Post(BaseModel):
 
 class BlogComment(BaseModel):
     objects = None
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, blank=True, null=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True)
-    message = models.TextField(blank=True)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

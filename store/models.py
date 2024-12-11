@@ -40,28 +40,28 @@ class Category(BaseModel):
 
 
 class Genre(BaseModel):
-    name = models.CharField(max_length=200, null=True)
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         return f'{self.name}'
 
 
 class Size(BaseModel):
-    name = models.CharField(max_length=200, null=True)
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         return f'{self.name}'
 
 
 class Color(BaseModel):
-    name = models.CharField(max_length=200, null=True)
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         return f'{self.name}'
 
 
 class Brand(BaseModel):
-    name = models.CharField(max_length=200, null=True)
+    name = models.CharField(max_length=200)
 
     def __str__(self):
         return f'{self.name}'
@@ -71,17 +71,17 @@ class Product(BaseModel):
     rating = models.FloatField(default=0)
     rating_count = models.PositiveIntegerField(default=0)
     name = models.CharField(max_length=100)
-    size = models.ForeignKey(Size, on_delete=models.CASCADE, null=True)
-    color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True)
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, null=True)
-    category = models.IntegerField(choices=CATEGORY_CHOICES, default=1)
+    size = models.ForeignKey(Size, on_delete=models.CASCADE)
+    color = models.ForeignKey(Color, on_delete=models.CASCADE)
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE)
+    category = models.IntegerField(choices=CATEGORY_CHOICES)
     image = models.ImageField(upload_to='products/')
     description = models.TextField()
     product_quantity = models.PositiveIntegerField(default=0)
     price = models.FloatField(default=0)
     discount = models.IntegerField(default=0)
     price_with_discount = models.FloatField(default=0)
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE)
 
     def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
         self.price_with_discount = self.price - ((self.discount / 100) * self.price)
@@ -104,7 +104,7 @@ class PromoCode(BaseModel):
 
 
 class PromoCodeObj(BaseModel):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     promo = models.ForeignKey(PromoCode, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -113,23 +113,23 @@ class PromoCodeObj(BaseModel):
 
 class Order(BaseModel):
     import uuid
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    product = models.ManyToManyField(Product, blank=True)
-    promo = models.ForeignKey(PromoCode, on_delete=models.CASCADE, blank=True, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ManyToManyField(Product)
+    promo = models.ForeignKey(PromoCode, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
     total_price = models.FloatField(default=0)
-    delivery_address = models.CharField(max_length=200, blank=True)  # ##
+    delivery_address = models.CharField(max_length=200)  # ##
     taking_type = models.IntegerField(choices=TAKING_TYPE, default=0)  # ##
-    delivery_point = models.CharField(max_length=200, blank=True)  # ##
-    first_name = models.CharField(max_length=100, null=True, blank=True)  ##
-    last_name = models.CharField(max_length=100, null=True, blank=True)  ##
-    email = models.EmailField(max_length=100, null=True, blank=True)  ##
+    delivery_point = models.CharField(max_length=200)  # ##
+    first_name = models.CharField(max_length=100)  ##
+    last_name = models.CharField(max_length=100)  ##
+    email = models.EmailField(max_length=100)  ##
     phone_number = models.CharField(max_length=13, validators=[validate_uz_phone_number])  ##
     payment_type = models.IntegerField(choices=PAYMENT_TYPES, default=0)  # ##
     payment_status = models.IntegerField(choices=PAYMENT_STATUS, default=0)  #
     status = models.IntegerField(choices=ORDER_STATUS, default=1)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False)
-    qr_code = models.ImageField(upload_to='qr_codes/', blank=True, null=True)
+    qr_code = models.ImageField(upload_to='qr_codes/')
 
     def __str__(self):
         return f"{self.user}"
@@ -137,7 +137,7 @@ class Order(BaseModel):
 
 class CardObj(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CharField, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CharField)
     name = models.CharField(max_length=200)
     price = models.FloatField(default=0)
     discount = models.IntegerField(default=0)
@@ -153,7 +153,7 @@ class CardObj(BaseModel):
 
 class LikedObj(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CharField, null=True)
+    product = models.ForeignKey(Product, on_delete=models.CharField)
 
     def __str__(self):
         return f'{self.product}'
@@ -162,7 +162,7 @@ class LikedObj(BaseModel):
 class Comment(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    comment = models.TextField(blank=True)
+    comment = models.TextField()
     rating = models.PositiveIntegerField(default=0)
 
     def __str__(self):

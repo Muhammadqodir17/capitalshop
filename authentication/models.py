@@ -4,8 +4,8 @@ from .utils import phone_validation
 
 
 class User(AbstractUser):
-    phone_number = models.CharField(max_length=13, validators=[phone_validation], null=True, blank=True, unique=True)
-    email = models.EmailField(unique=True, blank=True)
+    phone_number = models.CharField(max_length=13, validators=[phone_validation], unique=True)
+    email = models.EmailField(unique=True)
 
     def __str__(self):
         return f'{self.username}'
@@ -15,10 +15,10 @@ class CustomCard(models.Model):
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     pan = models.IntegerField(default=0)
-    cvv = models.CharField(max_length=3, blank=True, null=True)
+    cvv = models.CharField(max_length=3)
     bank_name = models.CharField(max_length=100)
     card_name = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=13, validators=[phone_validation], null=True, blank=True)
+    phone_number = models.CharField(max_length=13, validators=[phone_validation])
     balance = models.PositiveIntegerField(default=0)
     created_month = models.IntegerField(default=0)
     created_year = models.IntegerField(default=0)
@@ -30,14 +30,14 @@ class CustomCard(models.Model):
 
 
 class UserCard(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
     pan = models.IntegerField(default=0)
-    cvv = models.CharField(max_length=3, blank=True, null=True)
+    cvv = models.CharField(max_length=3)
     bank_name = models.CharField(max_length=100)
     card_name = models.CharField(max_length=100)
-    phone_number = models.CharField(max_length=13, validators=[phone_validation], null=True, blank=True)
+    phone_number = models.CharField(max_length=13, validators=[phone_validation])
     balance = models.PositiveIntegerField(default=0)
     created_month = models.IntegerField(default=0)
     created_year = models.IntegerField(default=0)
