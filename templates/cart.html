@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 <main>
 
@@ -10,10 +11,10 @@
                     <div class="slider-area">
                         <div class="slider-height2 slider-bg4 d-flex align-items-center justify-content-center">
                             <div class="hero-caption hero-caption2">
-                                <h2>Cart</h2>
+                                <h2>{% trans "Cart" %}</h2>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb justify-content-center">
-                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                        <li class="breadcrumb-item"><a href="/{{request.path|slice:'1:3'}}/">{% trans "Home" %}</a></li>
                                         <li class="breadcrumb-item"></li>
                                     </ol>
                                 </nav>
@@ -37,11 +38,11 @@
                                 <thead>
                                 {% if card_objs %}
                                 <tr>
-                                    <th scope="col">Product</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Total</th>
-                                    <th scope="col">Delete</th>
+                                    <th scope="col">{% trans "Product" %}</th>
+                                    <th scope="col">{% trans "Price" %}</th>
+                                    <th scope="col">{% trans "Quantity" %}</th>
+                                    <th scope="col">{% trans "Total" %}</th>
+                                    <th scope="col">{% trans "Delete" %}</th>
                                 </tr>
                                 {% else %}
                                 {% endif %}
@@ -91,28 +92,27 @@
                     {% if card_objs %}
                     <div class="col-lg-4">
                         <div class="order-summary">
-                            <h3>Buyurtmangiz</h3>
+                            <h3>{% trans "Buyurtmangiz" %}</h3>
                             <div class="item-section">
-                                <span id="total_amount">Mahsulotlar: ({{ total_quantity }})</span>
+                                <span id="total_amount">{% trans "Mahsulotlar" %}: ({{ total_quantity }})</span>
                                 <span id="without_discount">${{ without_discount }}</span>
                             </div>
                             <!--                            <a href="#" class="delivery-date">Yetkazib berish 13-noyabr</a>-->
                             <div class="total-section">
-                                <span>Jami:</span>
+                                <span>{% trans "Jami" %}:</span>
                                 <span id="subtotal">${{ with_discount }}</span>
                             </div>
-                            <div id="saving" class="savings">Tejovingiz: ${{ saving }}</div>
-                            <a href="/checkout" class="checkout-btn">Rasmiylashtirishga o‘tish</a>
+                            <div id="saving" class="savings">{% trans "Tejovingiz" %}: ${{ saving }}</div>
+                            <a href="/{{request.path|slice:'1:3'}}/checkout" class="checkout-btn">{% trans "Rasmiylashtirishga o‘tish" %}</a>
                         </div>
                     </div>
                     {% else %}
                         {% if not card_objs %}
                         <div class="container">
-                            <div class="title">Savatingiz hozircha bo'sh</div>
-                            <div class="message">Bosh sahifadan boshlang — kerakli tovarni qidiruv orqali
-                                topishingiz yoki to'plamlarni ko'rishingiz mumkin
+                            <div class="title">{% trans "Savatingiz hozircha bo'sh" %}</div>
+                            <div class="message">{% trans "Bosh sahifadan boshlang — kerakli tovarni qidiruv orqali topishingiz yoki to'plamlarni ko'rishingiz mumkin" %}
                             </div>
-                            <a href="/store" class="button">Bosh sahifa</a>
+                            <a href="/{{request.path|slice:'1:3'}}/store" class="button">{% trans "Bosh sahifa" %}</a>
                         </div>
                         {% endif %}
                     {% endif %}
@@ -141,7 +141,7 @@
             return;
         }
 
-        const response = await fetch('/update_cart/', {
+        const response = await fetch('/{{request.path|slice:'1:3'}}/update_cart/', {
             method: "POST",
             headers: headers,
             body: JSON.stringify({
@@ -220,7 +220,7 @@
 
                     if (data.cart.cart_num === 0) {
                         const emptyCartMessage = `
-                            <li><a href="/cart/"><span class="flaticon-shopping-cart"></span></a></li>
+                            <li><a href="/{{request.path|slice:'1:3'}}/cart/"><span class="flaticon-shopping-cart"></span></a></li>
                         `;
                         const cartElement = document.querySelector('.cart')
                         cartElement.outerHTML = emptyCartMessage;
@@ -234,7 +234,7 @@
                                 <div class="message">Bosh sahifadan boshlang — kerakli tovarni qidiruv orqali
                                     topishingiz yoki to'plamlarni ko'rishingiz mumkin
                                 </div>
-                                <a href="/store" class="button">Bosh sahifa</a>
+                                <a href="/{{request.path|slice:'1:3'}}/store" class="button">Bosh sahifa</a>
                             </div>
                         `;
                         const cartSection = document.querySelector('.cart_area');
@@ -431,6 +431,92 @@
         border-radius: 4px;
         text-decoration: none;
         cursor: pointer;
+    }
+</style>
+<style>
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .cart_inner .row {
+        flex-direction: column;
+      }
+
+      .cart_inner .col-lg-8,
+      .cart_inner .col-lg-4 {
+        flex: 0 0 100%;
+        padding: 0;
+      }
+
+      .table-responsive {
+        overflow-x: auto;
+      }
+
+      .product_count {
+        flex-wrap: wrap;
+        justify-content: flex-start;
+      }
+
+      .input-number {
+        order: 2;
+        margin: 10px 0;
+      }
+
+      .quantity-btn {
+        order: 1;
+      }
+
+      .quantity-increase {
+        order: 3;
+      }
+
+      .order-summary {
+        margin-top: 20px;
+      }
+
+      .hero-caption h2 {
+        font-size: 24px;
+      }
+
+      .breadcrumb {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .table th,
+      .table td {
+        padding: 0.5rem;
+      }
+
+      .product_count {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .input-number {
+        width: 40px;
+        height: 25px;
+        font-size: 14px;
+      }
+
+      .quantity-btn {
+        width: 20px;
+        height: 20px;
+        font-size: 16px;
+      }
+
+      .order-summary h3 {
+        font-size: 16px;
+      }
+
+      .order-summary .item-section,
+      .order-summary .total-section {
+        font-size: 14px;
+      }
+
+      .order-summary .checkout-btn {
+        font-size: 14px;
+        padding: 10px;
+      }
     }
 </style>
 

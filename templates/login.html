@@ -1,4 +1,5 @@
 {% load static %}
+{% load i18n %}
 {% load socialaccount %}
 <!doctype html>
 <html class="no-js" lang="zxx">
@@ -33,14 +34,14 @@
         <div class="login-form">
 
             <div class="login-heading">
-                <span>Login</span>
-                <p>Enter Login details to get access</p>
+                <span>{% trans "Login" %}</span>
+                <p>{% trans "Enter Login details to get access" %}</p>
             </div>
             <div class="input-box">
                 <form method="post">
                     {% csrf_token %}
                     <div class="single-input-fields">
-                        <label>Username</label>
+                        <label>{% trans 'Username' %}</label>
                         <div>
                             <style>
                                 h6{
@@ -49,20 +50,29 @@
                             </style>
                             <h6>{{ message }}</h6>
                         </div>
-                        <input name="username" type="text" placeholder="Username">
+                        <input name="username" type="text" placeholder="{% trans 'Username' %}">
                     </div>
                     <div class="single-input-fields">
-                        <label>Password</label>
-                        <input name="password" type="password" placeholder="Enter Password">
+                        <label>{% trans "Password" %}</label>
+                        <input name="password" type="password" placeholder="{% trans 'Enter Password' %}">
                     </div>
-<!--                    <div class="single-input-fields login-check">-->
-<!--                        <input type="checkbox" id="fruit1" name="keep-log">-->
-<!--                        <label for="fruit1">Keep me logged in</label>-->
-<!--                        <a href="#" class="f-right">Forgot Password?</a>-->
-<!--                    </div>-->
+                    <!--                    <div class="single-input-fields login-check">-->
+                    <!--                        <input type="checkbox" id="fruit1" name="keep-log">-->
+                    <!--                        <label for="fruit1">Keep me logged in</label>-->
+                    <!--                        <a href="#" class="f-right">Forgot Password?</a>-->
+                    <!--                    </div>-->
                     <div class="login-footer">
-                        <p>Don’t have an account? <a href="/auth/register/">Sign Up</a> here</p>
-                        <button class="submit-btn3">Login</button>
+                        <p>{% trans "Don’t have an account" %}? <a href="/{{request.path|slice:'1:3'}}/auth/register/">{% trans "Sign Up" %}</a>
+                            {% trans "here" %}</p>
+                        <button class="submit-btn3">{% trans "Login" %}</button>
+                    </div>
+                    <div class="login-container">
+                        <div class="separator">
+                            <hr/>
+                            <span>{% trans "or" %}</span>
+                            <hr/>
+                        </div>
+                        <a class="google-btn" href="{% provider_login_url 'google' %}"><i class="bi bi-google"><span style="color: black"> {% trans "Sign Up with Google" %}</span></i></a>
                     </div>
                 </form>
             </div>
@@ -70,6 +80,59 @@
     </div>
 
 </main>
+<style>
+    /* Container */
+    .login-container {
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Separator */
+    .separator {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .separator hr {
+      flex: 1;
+      border: none;
+      height: 1px;
+      background-color: black;
+    }
+
+    .separator span {
+      font-size: 14px;
+      color: #666;
+    }
+
+    /* Google Button */
+    .google-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 10px 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #fff;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .google-btn img {
+      height: 16px;
+      width: auto;
+    }
+
+    .google-btn:hover {
+      background-color: #4285f4;
+      border-color: #4285f4;
+    }
+</style>
 <script src="{% static 'js/vendor/modernizr-3.5.0.min.js' %}"></script>
 <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>

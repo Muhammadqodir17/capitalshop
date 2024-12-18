@@ -1,6 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
-
+{% load i18n %}
 {% block content %}
 <style>
 
@@ -486,16 +486,15 @@
         <img src="{% static 'img/icon/default_user.png' %}" alt="Profile Picture">
         <div class="profile-info">
             <h2>{{ user.username }}</h2>
-            <!--            <p>{{ user.email }}</p>-->
             <div class="stats">
                 <div id="liked-products-stat" onclick="showContent('liked-products')" class="stat-item active">
-                    <br>About me
+                    <br>{% trans "About me" %}
                 </div>
                 <div id="orders-stat" onclick="showContent('orders')" class="stat-item">
-                    <br>Card
+                    <br>{% trans "Card" %}
                 </div>
                 <div id="spending-stat" onclick="showContent('spending')" class="stat-item">
-                    <br>Orders
+                    <br>{% trans "Orders" %}
                 </div>
             </div>
         </div>
@@ -509,33 +508,33 @@
             <form class="profile-edit-form" action="{% url 'edit_profile' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-group">
-                    <label for="first-name">Familiya</label>
+                    <label for="first-name">{% trans "Ism" %}</label>
                     {% if user.first_name != None %}
                     <input value="{{ user.first_name }}" type="text" id="first-name" name="first_name"
-                           placeholder="Enter your first name" required style="border: 1px solid #E6E8ED; width: 100%;
+                           placeholder="{% trans 'Enter your first name' %}" required style="border: 1px solid #E6E8ED; width: 100%;
                         height: 35px; padding-top: 10px; padding-left: 10px; border-radius: 20px; background: #E6E8ED">
                     {% else %}
                     <input type="text" id="first-name" name="first_name"
-                           placeholder="Enter your first name" required style="border: 1px solid #E6E8ED; width: 100%;
+                           placeholder="{% trans 'Enter your first name' %}" required style="border: 1px solid #E6E8ED; width: 100%;
                         height: 35px; padding-top: 10px; padding-left: 10px; border-radius: 20px; background: #E6E8ED">
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    <label for="last-name">Ism</label>
+                    <label for="last-name">{% trans "Familiya" %}</label>
                     {% if user.last_name != None %}
                     <input value="{{ user.last_name }}" type="text" id="last-name" name="last_name"
-                           placeholder="Enter your last name" required style="border: 1px solid #E6E8ED; width: 100%;
+                           placeholder="{% trans 'Enter your last name' %}" required style="border: 1px solid #E6E8ED; width: 100%;
                     height: 35px; padding-top: 10px; padding-left: 10px; border-radius: 20px; background: #E6E8ED">
                     {% else %}
                     <input type="text" id="last-name" name="last_name"
-                           placeholder="Enter your last name" required style="border: 1px solid #E6E8ED; width: 100%;
+                           placeholder="{% trans 'Enter your last name' %}" required style="border: 1px solid #E6E8ED; width: 100%;
                     height: 35px; padding-top: 10px; padding-left: 10px; border-radius: 20px; background: #E6E8ED">
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    <label for="email">Elektron pochta</label>
+                    <label for="email">{% trans 'Elektron pochta' %}</label>
                     {% if user.email != None %}
-                    <input value="{{ user.email }}" type="text" id="email" name="email" placeholder="Enter your email"
+                    <input value="{{ user.email }}" type="text" id="email" name="email" placeholder="{% trans 'Enter your email' %}"
                            required style="border: 1px solid #E6E8ED; width: 100%;
                     height: 35px; padding-top: 10px; padding-left: 10px; border-radius: 20px; background: #E6E8ED">
                     {% else %}
@@ -545,36 +544,35 @@
                     {% endif %}
                 </div>
                 <div class="form-group">
-                    <label for="phone_number">Telefon raqam</label>
+                    <label for="phone_number">{% trans "Telefon raqam" %}</label>
                     {% if user.phone_number != None %}
                     <input value="{{ user.phone_number }}" type="text" id="phone_number" name="phone_number"
-                           placeholder="Enter your phone number" style="border: 1px solid #E6E8ED; width: 100%;
+                           placeholder="{% trans 'Enter your phone number' %}" style="border: 1px solid #E6E8ED; width: 100%;
                         height: 35px; padding-top: 10px; padding-left: 10px; border-radius: 20px; background: #E6E8ED">
                     {% else %}
                     <input type="text" id="phone_number" name="phone_number"
-                           placeholder="Enter your phone number" style="border: 1px solid #E6E8ED; width: 100%;
+                           placeholder="{% trans 'Enter your phone number' %}" style="border: 1px solid #E6E8ED; width: 100%;
                         height: 35px; padding-top: 10px; padding-left: 10px; border-radius: 20px; background: #E6E8ED">
                     {% endif %}
                 </div>
                 <div class="profile-actions" style="padding-top: 15px; float: left">
-                    <button type="submit" class="btn-logout">Save Changes</button>
+                    <button type="submit" class="btn-logout">{% trans 'Save Changes' %}</button>
                 </div>
             </form>
             <div class="profile-actions" style="padding-top: 15px;">
-                <a href="/auth/logout">
-                    <button class="btn-logout">Logout</button>
+                <a href="/{{request.path|slice:'1:3'}}/auth/logout">
+                    <button class="btn-logout">{% trans "Logout" %}</button>
                 </a>
             </div>
         </div>
 
         <div id="orders" class="orders">
             {% if credit_cart == None %}
-            <div style="width: 150px; height: 100px; border: 1px solid red; border-radius: 15px; text-align:center;  margin-left: 550px; background: red; color: white">
-                <a href="/store/add_card"><br>
-                    <div style="border: 1px solid white; border-radius: 50%; width: 25px; height: 25px; margin-left: 60px; background: white; color: red">
-                        +
-                    </div>
-                    Add Card</a>
+            <div class="add-card-container">
+                <a href="/{{request.path|slice:'1:3'}}/store/add_card" class="add-card-button">
+                    <div class="add-icon">+</div>
+                    {% trans "Add Card" %}
+                </a>
             </div>
             {% else %}
             <div class="credit-card">
@@ -583,9 +581,9 @@
                     <div class="card-logo">{{ credit_cart.bank_name }}</div>
                 </div>
                 <div class="card-body">
-                    <div style="color: grey; font-size: 15px;">Card Number</div>
+                    <div style="color: grey; font-size: 15px;">{% trans 'Card Number' %}</div>
                     <div class="card-number">**** **** **** {{ card_num }}</div>
-                    <div style="color: grey; font-size: 15px;">Current Balance</div>
+                    <div style="color: grey; font-size: 15px;">{% trans "Current Balance" %}</div>
                     <div class="card-number">${{ credit_cart.balance }}</div>
                     <div class="card-header">
                         <span style="font-size: 20px">{{ credit_cart.first_name }} {{ credit_cart.last_name }}</span>
@@ -595,53 +593,53 @@
             </div>
             <br>
             <a href="{% url 'exit_card' credit_cart.id %}">
-                <button style="margin-left: 0px" class="btn-logout">Exit Card</button>
+                <button style="margin-left: 0px" class="btn-logout">{% trans "Exit Card" %}</button>
             </a>
             {% endif %}
         </div>
 
         <div id="spending" class="spending">
             {% if orders %}
-            <h3>Your orders:</h3>
+            <h3>{% trans "Your orders" %}:</h3>
             {% for i in orders %}
             <div id="row-{{ i.id }}" class="order-summary">
-                <h2 class="order-id">Buyurtma ID raqami {{ i.id }}</h2>
+                <h2 class="order-id">{% trans "Buyurtma ID raqami" %}: {{ i.id }}</h2>
                 <div class="separator-line"></div>
 
                 <div class="order-status">
-                    <span>To`lov Holati:</span>
+                    <span>{% trans "To`lov Holati" %}:</span>
                     <span class="status">{{ i.get_payment_status_display }}</span>
                 </div>
 
                 <div class="order-details">
-                    <p><strong>Topshirish punkti: </strong>
+                    <p><strong>{% trans "Topshirish punkti" %}: </strong>
                         {% if i.delivery_point != ' ' %}
                         {{ i.delivery_point }}
                         {% else %}
                         {{ i.delivery_address }}
                         {% endif %}
                     </p>
-                    <p><strong>Buyurtma sanasi: </strong>{{ i.created_at }}</p>
-                    <p><strong>Buyurtma qiymati: </strong>${{ i.total_price }}</p>
+                    <p><strong>{% trans "Buyurtma sanasi" %}: </strong>{{ i.created_at }}</p>
+                    <p><strong>{% trans "Buyurtma qiymati" %}: </strong>${{ i.total_price }}</p>
                 </div>
                 {% if i.payment_status == 1 and i.payment_type != 1 %}
                 <div class="order-actions">
                     <a href="{% url 'pay_online' i.id %}">
-                        <button class="pay-button">Buyurtma to'lov qilish</button>
+                        <button class="pay-button">{% trans "Buyurtma to'lov qilish" %}</button>
                     </a>
                 </div>
                 {% elif i.payment_status == 2 %}
                 <div class="order-status">
-                    <span>Buyurtma Holati:</span>
+                    <span>{% trans "Buyurtma Holati" %}:</span>
                     <span class="status">{{ i.get_status_display }}</span>
                 </div>
                 {% else %}
                 <div class="order-status">
-                    <span>Buyurtma Holati:</span>
+                    <span>{% trans "Buyurtma Holati" %}:</span>
                     <span class="status">{{ i.get_status_display }}</span>
                 </div>
                 <div class="order-status">
-                    <span>To`lov Holati:</span>
+                    <span>{% trans "To`lov Holati" %}:</span>
                     <span class="status">{{ i.get_payment_type_display }}</span>
                 </div>
                 {% endif %}
@@ -655,7 +653,7 @@
                     <button type="button" onclick="deleteCart(this)" data-id="{{ i.id }}"
                             class="btn-custom">
                         <i class="fa fa-trash"> <span style="font-size: 15px; font-family: sans-serif">
-                                Buyurtmani bekor qilish</span></i>
+                                {% trans "Buyurtmani bekor qilish" %}</span></i>
                     </button>
                 </div>
                 {% endif %}
@@ -664,11 +662,9 @@
             {% endfor %}
             {% else %}
             <div class="containerr">
-                <div class="titlee">Hozircha hech narsa yo`q</div>
-                <div class="messagee">Bosh sahifadan boshlang — kerakli tovarni qidiruv orqali
-                    topishingiz yoki to'plamlarni ko'rishingiz mumkin
-                </div>
-                <a href="/store" class="buttonn">Bosh sahifa</a>
+                <div class="titlee">{% trans "Hozircha hech narsa yo`q" %}</div>
+                <div class="messagee">{% trans "Bosh sahifadan boshlang — kerakli tovarni qidiruv orqali topishingiz yoki to'plamlarni ko'rishingiz mumkin" %}</div>
+                <a href="/{{request.path|slice:'1:3'}}/store" class="buttonn">{% trans "Bosh sahifa" %}</a>
             </div>
             {% endif %}
         </div>
@@ -754,7 +750,7 @@
                                 <div class="messagee">Bosh sahifadan boshlang — kerakli tovarni qidiruv orqali
                                     topishingiz yoki to'plamlarni ko'rishingiz mumkin
                                 </div>
-                                <a href="/store" class="buttonn">Bosh sahifa</a>
+                                <a href="/{{request.path|slice:'1:3'}}/store" class="buttonn">Bosh sahifa</a>
                             </div>
                         `;
                         const cartSection = document.querySelector('.spending');
@@ -771,9 +767,154 @@
         });
     });
 </script>
+<style>
+    /* Container styling */
+    .add-card-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+    }
 
+    /* Card button */
+    .add-card-button {
+        text-decoration: none;
+        background-color: red; /* Teal color */
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 300px; /* Default size for desktop */
+        height: 200px; /* Default height for desktop */
+        color: #ffffff; /* Text color */
+        font-family: Arial, sans-serif;
+        font-size: 18px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s ease-in-out;
+    }
+
+    /* Hover effect */
+    .add-card-button:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+    }
+
+    /* Icon styling */
+    .add-icon {
+        font-size: 32px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    /* Text styling */
+    .add-text {
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    /* Responsive for phones */
+    @media (max-width: 768px) {
+        .add-card-button {
+            width: 90%; /* Full width on smaller screens */
+            height: 150px;
+            font-size: 16px;
+        }
+        .add-icon {
+            font-size: 28px;
+        }
+        .add-text {
+            font-size: 16px;
+        }
+    }
+
+</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+<style>
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .profile-header .container {
+        flex-direction: column;
+        text-align: center;
+      }
 
+      .profile-info {
+        margin-left: 0;
+        margin-top: 20px;
+      }
+
+      .profile-actions {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .profile-actions .btn-edit,
+      .profile-actions .btn-logout {
+        margin: 10px 0;
+        width: 100%;
+      }
+
+      .liked-products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+      }
+
+      .credit-card {
+        width: 100%;
+      }
+
+      .order-summary {
+        padding: 10px;
+      }
+
+      .order-status .status {
+        margin-right: 0;
+      }
+
+      .qr-code-container {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .qr-code {
+        width: 100px;
+        height: 100px;
+      }
+
+      .form-group input[type="text"],
+      .form-group input[type="email"],
+      .form-group input[type="tel"],
+      .form-group input[type="date"] {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .profile-header img {
+        max-width: 100px;
+      }
+
+      .profile-info h2 {
+        font-size: 24px;
+      }
+
+      .profile-info .stats {
+        flex-direction: column;
+      }
+
+      .profile-info .stats div {
+        margin-bottom: 10px;
+      }
+
+      .credit-card {
+        padding: 10px;
+      }
+
+      .card-number {
+        font-size: 18px;
+      }
+    }
+</style>
 
 {% endblock %}
 

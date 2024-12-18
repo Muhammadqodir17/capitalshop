@@ -6,6 +6,7 @@ from .models import Post, Category, Tag
 from django.core.paginator import Paginator
 from authentication.models import User
 from blog.models import BlogComment
+from store.utils import test_login_required
 
 
 def blog_view(requests):
@@ -56,12 +57,18 @@ def blog_detail_view(requests, pk):
         cart_counter = 0
 
     if requests.method == 'POST':
-        new_comment = BlogComment.objects.create(user=requests.user, post_id=pk, message=requests.POST.get('comment'))
-        new_comment.save()
-        blog_comment_count = Post.objects.filter(id=pk).first()
-        blog_comment_count.comment_count += 1
-        blog_comment_count.save()
-        return redirect(f'/blog/blog/{pk}')
+        if not user.is_authenticated:
+            language = requests.path[1:3]
+            current_path = requests.get_full_path()
+            login_url = f'/{language}/auth/login/?next={current_path}'
+            return redirect(login_url)
+        else:
+            new_comment = BlogComment.objects.create(user=requests.user, post_id=pk, message=requests.POST.get('comment'))
+            new_comment.save()
+            blog_comment_count = Post.objects.filter(id=pk).first()
+            blog_comment_count.comment_count += 1
+            blog_comment_count.save()
+            return redirect(f'/{requests.path[1:3]}/blog/blog/{pk}')
 
     tags = Tag.objects.all()
     categories = Category.objects.all()

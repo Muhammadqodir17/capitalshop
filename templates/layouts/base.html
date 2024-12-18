@@ -1,4 +1,7 @@
 <!Doctype html>
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+{% get_available_languages as LANGUAGES %}
 {% load static %}
 <html class="no-js" lang="zxx">
 
@@ -26,6 +29,8 @@
     <link rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/7.2.3/css/flag-icons.min.css" integrity="sha512-bZBu2H0+FGFz/stDN/L0k8J0G8qVsAL0ht1qg5kTwtAheiXwiRKyCq1frwfbSFSJN3jooR5kauE0YjtPzhZtJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
         .rating-wrapper {
             display: flex; /* Aligns stars horizontally */
@@ -65,6 +70,27 @@
             margin-bottom: 5px; /* Space between label and stars */
         }
     </style>
+    <style>
+        .suggestions-box {
+            width: 100%;
+            border: 1px solid #ccc;
+            max-height: 200px;
+            overflow-y: auto;
+            position: absolute;
+            background: white;
+            z-index: 1000;
+        }
+
+        .suggestion-item {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+
 
     <script nonce="f4643259-d23d-4138-aaa8-e7e4d7996b39">try {
         (function (w, d) {
@@ -148,16 +174,16 @@
                         <div class="d-flex justify-content-between flex-wrap align-items-center">
                             <div class="header-info-left">
                                 <ul>
-                                    <li><a href="/store/about">About Us</a></li>
-                                    <li><a href="/store/privacy">Privacy</a></li>
-                                    <li><a href="/store/faq">FAQ</a></li>
-                                    <li><a href="/store/support">Support</a></li>
+                                    <li><a href="/{{request.path|slice:'1:3'}}/store/about">{% trans 'About Us' %}</a></li>
+                                    <li><a href="/{{request.path|slice:'1:3'}}/store/privacy">{% trans 'Privacy' %}</a></li>
+                                    <li><a href="/{{request.path|slice:'1:3'}}/store/faq">{% trans 'FAQ' %}</a></li>
+                                    <li><a href="/{{request.path|slice:'1:3'}}/store/support">{% trans 'Support' %}</a></li>
                                 </ul>
                             </div>
                             <div class="header-info-right d-flex">
                                 <ul class="order-list">
-                                    <li><a href="/store/wishlist">My Wishlist</a></li>
-                                    <li><a href="/store/checkout">Track Your Order</a></li>
+                                    <li><a href="/{{request.path|slice:'1:3'}}/store/wishlist">{% trans 'My Wishlist' %}</a></li>
+                                    <li><a href="/{{request.path|slice:'1:3'}}/store/checkout">{% trans 'Track Your Order' %}</a></li>
                                 </ul>
                                 <ul class="header-social">
                                     <li><a href="#"><i class="fab fa-facebook"></i></a></li>
@@ -177,35 +203,45 @@
                 <div class="menu-wrapper">
 
                     <div class="logo">
-                        <a href="/"><img src="{% static 'img/logo/logo.png' %}" alt></a>
+                        <a href="/{{request.path|slice:'1:3'}}/"><img src="{% static 'img/logo/logo.png' %}" alt></a>
                     </div>
 
                     <div class="main-menu d-none d-lg-block">
                         <nav>
                             <ul id="navigation">
-                                <li><a href="/">Home</a></li>
-                                <li><a href="/store/men_products/">Men</a></li>
-                                <li><a href="/store/women_products/">Women</a></li>
+                                <li><a href="/{{request.path|slice:'1:3'}}/">{% trans 'Home' %}</a></li>
+                                <li><a href="/{{request.path|slice:'1:3'}}/store/men_products/">{% trans 'Men' %}</a></li>
+                                <li><a href="/{{request.path|slice:'1:3'}}/store/women_products/">{% trans 'Women' %}</a></li>
                                 <!--                                <li class="new"><a href="/store/men_products/">Baby Collection</a></li>-->
-                                <li><a href="/store/baby_products/">Baby Collection</a></li>
-                                <!--                                <li><a href="/auth/login/">Login <i class="fas fa-angle-down"></i></a>-->
-                                <!--                                    <ul class="submenu">-->
-                                <!--                                        <li><a href="/auth/logout/">Logout</a></li>-->
-                                <!--&lt;!&ndash;                                        <li><a href="/store/checkout/">Product Checkout</a></li>&ndash;&gt;-->
-                                <!--                                    </ul>-->
-                                <!--                                </li>-->
-                                <li><a href="/blog/">Blog</a>
-                                    <!--                                    <ul class="submenu">-->
-                                    <!--                                        <li><a href="/blog/">Blog</a></li>-->
-                                    <!--                                        <li><a href="/store/elements/">Element</a></li>-->
-                                    <!--                                    </ul>-->
+                                <li><a href="/{{request.path|slice:'1:3'}}/store/baby_products/">{% trans 'Baby' %}</a></li>
+                                <li><a href="/{{request.path|slice:'1:3'}}/blog/">{% trans 'Blog' %}</a>
                                 </li>
-                                <li><a href="/contact/">Contact</a></li>
-<!--                                {% if auth == None %}-->
-<!--                                <li><a href="/auth/login/">Login</a></li>-->
-<!--                                {% else %}-->
-<!--                                <li><a href="/auth/logout/">Logout</a></li>-->
-<!--                                {% endif %}-->
+                                <li><a href="/{{request.path|slice:'1:3'}}/contact/">{% trans 'Contact' %}</a></li>
+                                <li><a>{{ LANGUAGE_CODE }}
+                                    {% if LANGUAGE_CODE == 'en' %}
+                                        <i class="fi fi-us"></i>
+                                    {% elif LANGUAGE_CODE == 'ru' %}
+                                        <i class="fi fi-ru"></i>
+                                    {% else %}
+                                        <i class="fi fi-uz"></i>
+                                    {% endif %}
+                                </a>
+                                    <ul class="submenu">
+                                        {% for LANGUAGE in LANGUAGES %}
+                                            {% if LANGUAGE.0 != LANGUAGE_CODE %}
+                                                <li><a href="/{{ LANGUAGE.0 }}{{ request.path|slice:'3:' }}">
+                                                    {% if LANGUAGE.0 == 'en' %}
+                                                        <i class="fi fi-us"></i> {{ LANGUAGE.1 }}
+                                                    {% elif LANGUAGE.0 == 'ru' %}
+                                                        <i class="fi fi-ru"></i> {{ LANGUAGE.1 }}
+                                                    {% else %}
+                                                        <i class="fi fi-uz"></i> {{ LANGUAGE.1 }}
+                                                    {% endif %}
+                                                </a></li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -223,30 +259,30 @@
                                 </div>
                             </li>
                             {% if cart_num == 0 %}
-                            <li><a href="/cart/"><span class="flaticon-shopping-cart"></span></a></li>
+                            <li><a href="/{{request.path|slice:'1:3'}}/cart/"><span class="flaticon-shopping-cart"></span></a></li>
                             {% else %}
-                            <li id="cart_num" class="cart" data-cart-count="{{ cart_num }}"><a href="/cart/"><span
+                            <li id="cart_num" class="cart" data-cart-count="{{ cart_num }}"><a href="/{{request.path|slice:'1:3'}}/cart/"><span
                                     class="flaticon-shopping-cart"></span></a></li>
                             {% endif %}
 
                             <li>
-                                <a href="/auth/profile">
+                                <a href="/{{request.path|slice:'1:3'}}/auth/profile">
                                     <span class="flaticon-user"></span>
                                 </a>
                             </li>
-
-                            <!--                            <li class="cart"><a href="/auth/logout/"><ion-icon style="width: 28px; height: 28px; margin-top: 2px; margin-left: 10px; color: #4d4d4d" name="log-out"><span class="flaticon-shopping-cart"></span></ion-icon></a></li>-->
-                            <!--                            <a class="a-hover-red" href="/auth/logout/"><ion-icon style="width: 28px; height: 28px; margin-top: 2px; margin-left: 10px; color: #4d4d4d" name="log-out"></ion-icon></a>-->
                         </ul>
                     </div>
                 </div>
 
-                <div class="search_input" id="search_input_box">
-                    <form class="search-inner d-flex justify-content-between ">
-                        <input type="text" class="form-control" id="search_input" placeholder="Search Here">
-                        <button type="submit" class="btn"></button>
-                        <span class="ti-close" id="close_search" title="Close Search"></span>
+                <div class="search_input" id="search_input_box" style="display: none;">
+                    <form method="GET" action="{% url 'search' %}" class="search-inner d-flex justify-content-between">
+                        <input type="text" class="form-control" name="search" id="search_input"
+                               placeholder="{% trans 'Search Here' %}" value="{{ request.GET.search }}"
+                               onkeyup="fetchSuggestions(this.value)">
+                        <span class="ti-close" id="close_search" title="Close Search"
+                              onclick="document.getElementById('search_input_box').style.display='none';"></span>
                     </form>
+                    <div id="suggestions" class="suggestions-box"></div>
                 </div>
 
                 <div class="col-12">
@@ -255,8 +291,7 @@
             </div>
         </div>
         <div class="header-bottom text-center">
-            <p>Sale Up To 50% Biggest Discounts. Hurry! Limited Perriod Offer <a href="#" class="browse-btn">Shop
-                Now</a></p>
+            <p>{% trans 'Sale Up To 50% Biggest Discounts. Hurry! Limited Perriod Offer' %}<a href="#" class="browse-btn">{% trans 'Shop Now' %}</a></p>
         </div>
     </div>
 </header>
@@ -268,58 +303,23 @@
 <footer>
     <div class="footer-wrapper gray-bg">
         <div class="footer-area footer-padding">
-
-            <section class="subscribe-area">
-                <div class="container">
-                    <div class="row justify-content-between subscribe-padding">
-                        <div class="col-xxl-3 col-xl-3 col-lg-4">
-                            <div class="subscribe-caption">
-                                <h3>Subscribe Newsletter</h3>
-                                <p>Subscribe newsletter to get 5% on all products.</p>
-                            </div>
-                        </div>
-                        <div class="col-xxl-5 col-xl-6 col-lg-7 col-md-9">
-                            <div class="subscribe-caption">
-                                <form action="#">
-                                    <input type="text" placeholder="Enter your email">
-                                    <button class="subscribe-btn">Subscribe</button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="col-xxl-2 col-xl-2 col-lg-4">
-
-                            <div class="footer-social">
-                                <a href="https://bit.ly/sai4ull"><i class="fab fa-facebook"></i></a>
-                                <a href="#"><i class="fab fa-instagram"></i></a>
-                                <a href="#"><i class="fab fa-youtube"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <div class="container">
                 <div class="row justify-content-between">
                     <div class="col-xl-3 col-lg-3 col-md-6 col-sm-8">
                         <div class="single-footer-caption mb-50">
-                            <div class="single-footer-caption mb-20">
-
+                            <div class="single-footer-caption mb-20" style="position: relative;">
                                 <div class="footer-logo mb-35">
-                                    <a href="/"><img src="{% static 'img/logo/logo2_footer.png' %}" alt></a>
+                                    <a href="/{{request.path|slice:'1:3'}}/"><img src="{% static 'img/logo/logo2_footer.png' %}" alt></a>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <h4 style="color: white; text-align: center; margin-bottom: 25px">{% trans 'Quick Links' %}</h4>
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
                         <div class="single-footer-caption mb-50">
                             <div class="footer-tittle">
-                                <h4>Shop Men</h4>
                                 <ul>
-                                    <li><a href="#">Clothing Fashion</a></li>
-                                    <li><a href="#">Winter</a></li>
-                                    <li><a href="#">Summer</a></li>
-                                    <li><a href="#">Formal</a></li>
-                                    <li><a href="#">Casual</a></li>
+                                    <li><a href="/{{request.path|slice:'1:3'}}/store/about">{% trans 'About Us' %}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -327,13 +327,8 @@
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
                         <div class="single-footer-caption mb-50">
                             <div class="footer-tittle">
-                                <h4>Shop Women</h4>
                                 <ul>
-                                    <li><a href="#">Clothing Fashion</a></li>
-                                    <li><a href="#">Winter</a></li>
-                                    <li><a href="#">Summer</a></li>
-                                    <li><a href="#">Formal</a></li>
-                                    <li><a href="#">Casual</a></li>
+                                    <li><a href="/{{request.path|slice:'1:3'}}/store/privacy">{% trans 'Privacy' %}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -341,13 +336,8 @@
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
                         <div class="single-footer-caption mb-50">
                             <div class="footer-tittle">
-                                <h4>Baby Collection</h4>
                                 <ul>
-                                    <li><a href="#">Clothing Fashion</a></li>
-                                    <li><a href="#">Winter</a></li>
-                                    <li><a href="#">Summer</a></li>
-                                    <li><a href="#">Formal</a></li>
-                                    <li><a href="#">Casual</a></li>
+                                    <li><a href="/{{request.path|slice:'1:3'}}/store/faq">{% trans 'FAQ' %}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -355,14 +345,8 @@
                     <div class="col-xl-2 col-lg-2 col-md-4 col-sm-6">
                         <div class="single-footer-caption mb-50">
                             <div class="footer-tittle">
-                                <h4>Quick Links</h4>
                                 <ul>
-                                    <li><a href="/store/checkout">Track Your Order</a></li>
-                                    <li><a href="#">Support</a></li>
-                                    <li><a href="#">FAQ</a></li>
-                                    <li><a href="#">Carrier</a></li>
-                                    <li><a href="#">About</a></li>
-                                    <li><a href="#">Contact Us</a></li>
+                                    <li><a href="/{{request.path|slice:'1:3'}}/store/support">{% trans 'Support' %}</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -377,10 +361,11 @@
                     <div class="row">
                         <div class="col-xl-12 ">
                             <div class="footer-copy-right text-center">
-                                <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-                                    All rights reserved | This template is made with <i class="fa fa-heart color-danger"
-                                                                                        aria-hidden="true"></i> by <a
-                                            href="https://colorlib.com/" target="_blank" rel="nofollow noopener">Mavlonbek</a>
+                                <p>{% trans 'Copyright' %} &copy;<script>document.write(new Date().getFullYear());</script>
+                                    {% trans 'All rights reserved | This template is made with'  %} <i class="fa fa-heart color-danger"
+                                                                                        aria-hidden="true"></i> <a
+                                            href="https://www.instagram.com/_.1khar1mbayev/" target="_blank"
+                                            rel="nofollow noopener"> KM</a>
                                 </p>
                             </div>
                         </div>
@@ -402,6 +387,95 @@
     </a>
 </div>
 
+<style>
+    .mobile_menu {
+        display: block;
+        background-color: #fff;
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .mobile_menu nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .mobile_menu nav ul li {
+        margin: 10px 0;
+    }
+
+    .mobile_menu nav ul li a {
+        color: #333;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    @media (min-width: 768px) {
+        .mobile_menu {
+            display: none;
+        }
+    }
+    .mobile_menu {
+        display: block;
+        background-color: #fff;
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .mobile_menu nav ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .mobile_menu nav ul li {
+        margin: 10px 0;
+    }
+
+    .mobile_menu nav ul li a {
+        color: #333;
+        text-decoration: none;
+        font-size: 18px;
+    }
+
+    @media (min-width: 768px) {
+        .mobile_menu {
+            display: none;
+        }
+    }
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+    body {
+        font-size: 16px;
+    }
+
+    @media (max-width: 768px) {
+        body {
+            font-size: 14px;
+        }
+        .header-info-left ul li, .header-info-right ul li {
+            margin-bottom: 5px;
+        }
+    }
+    input, button {
+        padding: 10px;
+        font-size: 16px;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const menuToggle = document.querySelector(".mobile_menu");
+        const navMenu = document.querySelector(".main-menu nav");
+        menuToggle.addEventListener("click", () => {
+            navMenu.classList.toggle("active");
+        });
+    });
+
+</script>
 
 <script src="{% static 'js/vendor/modernizr-3.5.0.min.js' %}"></script>
 <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
@@ -442,11 +516,101 @@
 
     gtag('config', 'UA-23581568-13');
 </script>
+<script>
+    function fetchSuggestions(query) {
+        if (query.length < 2) {
+            document.getElementById('suggestions').innerHTML = '';
+            return;
+        }
+
+        fetch(`/suggestions/?search=${query}`)
+            .then(response => response.json())
+            .then(data => {
+                let suggestionsBox = document.getElementById('suggestions');
+                suggestionsBox.innerHTML = '';
+                data.forEach(item => {
+                    let suggestionItem = document.createElement('div');
+                    suggestionItem.className = 'suggestion-item';
+                    suggestionItem.innerText = item;
+                    suggestionItem.onclick = function() {
+                        document.getElementById('search_input').value = item;
+                        suggestionsBox.innerHTML = '';
+                    };
+                    suggestionsBox.appendChild(suggestionItem);
+                });
+            })
+            .catch(error => console.error('Error fetching suggestions:', error));
+    }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
         integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA=="
         data-cf-beacon='{"rayId":"8545cb769f682119","b":1,"version":"2024.2.0","token":"cd0b4b3a733644fc843ef0b185f98241"}'
         crossorigin="anonymous"></script>
 </body>
+<style>
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .header-area .header-top {
+        display: none;
+      }
+
+      .header-mid .logo {
+        text-align: center;
+        margin-bottom: 15px;
+      }
+
+      .header-right {
+        justify-content: center;
+      }
+
+      .main-menu {
+        display: none;
+      }
+
+      .mobile_menu {
+        display: block;
+      }
+
+      .slider-height {
+        height: 300px;
+      }
+
+      .hero-caption h1 {
+        font-size: 30px;
+      }
+
+      .footer-area .single-footer-caption {
+        margin-bottom: 30px;
+      }
+
+      .footer-bottom-area {
+        text-align: center;
+      }
+
+      .footer-copy-right p {
+        margin-bottom: 10px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .header-mid .logo img {
+        max-width: 120px;
+      }
+
+      .hero-caption h1 {
+        font-size: 24px;
+      }
+
+      .slider-height {
+        height: 250px;
+      }
+
+      .footer-area {
+        padding: 50px 0;
+      }
+    }
+</style>
 
 
 <!-- Mirrored from preview.colorlib.com/theme/capitalshop/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 12 Feb 2024 15:18:10 GMT -->

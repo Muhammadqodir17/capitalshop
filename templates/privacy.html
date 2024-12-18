@@ -1,142 +1,83 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - [Your Store Name]</title>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            background-color: #f9f9f9;
-        }
-
-        header {
-            background-color: #ff0000;
-            color: #fff;
-            padding: 2rem 1rem;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .section {
-            margin-bottom: 2rem;
-        }
-
-        .section h2 {
-            color: #ff0000;
-            margin-bottom: 1rem;
-            font-size: 1.5rem;
-        }
-
-        .section p {
-            margin-bottom: 1rem;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 2rem;
-        }
-
-        footer a {
-            color: #ff0000;
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
-<header>
-    <h1>Privacy Policy</h1>
-    <p>Your privacy matters to us.</p>
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<header class="bg-primary text-white py-4">
+    <div class="container text-center">
+        <br>
+        <h1>{% trans "Privacy Policy" %}</h1>
+        <p>{% trans "Your privacy matters to us." %}</p>
+    </div>
 </header>
-<div class="container">
-    <section class="section">
-        <h2>Introduction</h2>
-        <p>Welcome to Capital Shop! We are committed to safeguarding your privacy and ensuring the security of your
-            personal information. This Privacy Policy outlines how we collect, use, and protect your data when you
-            interact with our website.</p>
+<div class="container my-5">
+    <section class="mb-5">
+        <h2 class="text-secondary">{% trans "Introduction" %}</h2>
+        <p class="text-muted">{% trans "Welcome to Capital Shop! We are committed to safeguarding your privacy and ensuring the security of your personal information. This Privacy Policy outlines how we collect, use, and protect your data when you interact with our website." %}</p>
     </section>
-    <section class="section">
-        <h2>What Information We Collect</h2>
-        <p>We may collect the following types of information:</p>
-        <ul>
-            <li><strong>Personal Information:</strong> Name, email address, phone number, and other details you provide
-                during registration or checkout.
+    <section class="mb-5">
+        <h2 class="text-secondary">{% trans "What Information We Collect" %}</h2>
+        <p>{% trans "We may collect the following types of information:" %}</p>
+        <ul class="list-group">
+            <li class="list-group-item">
+                <strong>{% trans "Personal Information:" %}</strong> {% trans "Name, email address, phone number, and other details you provide during registration or checkout." %}
             </li>
-            <li><strong>Browsing Data:</strong> Information about your activity on our website, including pages viewed
-                and items added to your cart.
+            <li class="list-group-item">
+                <strong>{% trans "Browsing Data:" %}</strong> {% trans "Information about your activity on our website, including pages viewed and items added to your cart." %}
             </li>
-            <li><strong>Cookies:</strong> Data stored on your device to enhance your browsing experience.</li>
+            <li class="list-group-item">
+                <strong>{% trans "Cookies:" %}</strong> {% trans "Data stored on your device to enhance your browsing experience." %}
+            </li>
         </ul>
     </section>
-    <section class="section">
-        <h2>How We Use Your Information</h2>
-        <p>Your data is used to:</p>
-        <ul>
-            <li>Process orders and deliver products or services.</li>
-            <li>Improve our website's functionality and user experience.</li>
-            <li>Send promotional offers, updates, and other relevant information.</li>
+    <section class="mb-5">
+        <h2 class="text-secondary">{% trans "How We Use Your Information" %}</h2>
+        <p>{% trans "Your data is used to:" %}</p>
+        <ul class="list-group">
+            <li class="list-group-item">{% trans "Process orders and deliver products or services." %}</li>
+            <li class="list-group-item">{% trans "Improve our website's functionality and user experience." %}</li>
+            <li class="list-group-item">{% trans "Send promotional offers, updates, and other relevant information." %}</li>
         </ul>
-        <p><strong>Note:</strong> You can opt out of marketing emails at any time.</p>
+        <p class="text-muted"><strong>{% trans "Note:" %}</strong> {% trans "You can opt out of marketing emails at any time." %}</p>
     </section>
-    <section class="section">
-        <h2>How We Protect Your Data</h2>
-        <p>We implement strict security measures to ensure your personal information is protected, including:</p>
-        <ul>
-            <li>Encryption of sensitive data.</li>
-            <li>Regular software updates and security checks.</li>
-            <li>Limited access to your information by authorized personnel only.</li>
-        </ul>
-    </section>
-    <section class="section">
-        <h2>Third-Party Sharing</h2>
-        <p>We do not sell, trade, or share your personal information with third parties, except when necessary to:</p>
-        <ul>
-            <li>Complete transactions (e.g., payment processors, shipping services).</li>
-            <li>Comply with legal obligations or enforce our terms of service.</li>
+    <section class="mb-5">
+        <h2 class="text-secondary">{% trans "How We Protect Your Data" %}</h2>
+        <p>{% trans "We implement strict security measures to ensure your personal information is protected, including:" %}</p>
+        <ul class="list-group">
+            <li class="list-group-item">{% trans "Encryption of sensitive data." %}</li>
+            <li class="list-group-item">{% trans "Regular software updates and security checks." %}</li>
+            <li class="list-group-item">{% trans "Limited access to your information by authorized personnel only." %}</li>
         </ul>
     </section>
-    <section class="section">
-        <h2>Your Rights</h2>
-        <p>You have the right to:</p>
-        <ul>
-            <li>Access the personal data we hold about you.</li>
-            <li>Request corrections or updates to your information.</li>
-            <li>Request the deletion of your personal data, where applicable.</li>
+    <section class="mb-5">
+        <h2 class="text-secondary">{% trans "Third-Party Sharing" %}</h2>
+        <p>{% trans "We do not sell, trade, or share your personal information with third parties, except when necessary to:" %}</p>
+        <ul class="list-group">
+            <li class="list-group-item">{% trans "Complete transactions (e.g., payment processors, shipping services)." %}</li>
+            <li class="list-group-item">{% trans "Comply with legal obligations or enforce our terms of service." %}</li>
         </ul>
     </section>
-    <section class="section">
-        <h2>Changes to This Policy</h2>
-        <p>We may update this Privacy Policy from time to time to reflect changes in our practices or for legal
-            compliance. Any updates will be posted on this page with the "Last Updated" date.</p>
+    <section class="mb-5">
+        <h2 class="text-secondary">{% trans "Your Rights" %}</h2>
+        <p>{% trans "You have the right to:" %}</p>
+        <ul class="list-group">
+            <li class="list-group-item">{% trans "Access the personal data we hold about you." %}</li>
+            <li class="list-group-item">{% trans "Request corrections or updates to your information." %}</li>
+            <li class="list-group-item">{% trans "Request the deletion of your personal data, where applicable." %}</li>
+        </ul>
     </section>
-    <section class="section">
-        <h2>Contact Us</h2>
-        <p>If you have any questions about our Privacy Policy, please contact us:</p>
-        <p>Email: <a href="mailto:shaislamovshakhruz@gmail.com">shaislamovshakhruz@gmail.com</a></p>
-        <p>GitHub: <a href="https://github.com/shakhruzdev" target="_blank">github.com</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/shakhruz-shaislamov-b26065301/"
-                        target="_blank">linkedin.com</a>
-        </p>
+    <section class="mb-5">
+        <h2 class="text-secondary">{% trans "Changes to This Policy" %}</h2>
+        <p>{% trans "We may update this Privacy Policy from time to time to reflect changes in our practices or for legal compliance. Any updates will be posted on this page with the 'Last Updated date.'" %}</p>
+    </section>
+    <section class="mb-5">
+        <h2 class="text-secondary">{% trans "Contact Us" %}</h2>
+        <p>{% trans "If you have any questions about our Privacy Policy, please contact us:" %}</p>
+        <ul class="list-unstyled">
+            <li>Email: <a style="color: red" href="https://km1728.uz@gmail.com">km1728.uz@gmail.com</a></li>
+            <li>GitHub: <a style="color: purple" href="https://github.com/Muhammadqodir17/" target="_blank">github.com</a></li>
+            <li>LinkedIn: <a style="color: blue" href="https://www.linkedin.com/in/muhammadqodir-karimboyev-8b27a32b9/" target="_blank">linkedin.com</a></li>
+        </ul>
     </section>
 </div>
-<footer>
-    <p>&copy; 2024 Capital Shop. All rights reserved.</p>
-</footer>
-</body>
-</html>
+{% endblock %}
+

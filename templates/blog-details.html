@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
     <main>
 
@@ -10,12 +11,12 @@
                     <div class="slider-area">
                         <div class="slider-height2 slider-bg4 d-flex align-items-center justify-content-center">
                             <div class="hero-caption hero-caption2">
-                                <h2>Blog Details</h2>
+                                <h2>{% trans "Blog Details" %}</h2>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb justify-content-center">
-                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="/blog/">Blog</a></li>
-                                        <li class="breadcrumb-item"><a href="/blog/blog/{{ post.id }}">Blog Details</a></li>
+                                        <li class="breadcrumb-item"><a href="/{{request.path|slice:'1:3'}}/">{% trans "Home" %}</a></li>
+                                        <li class="breadcrumb-item"><a href="/{{request.path|slice:'1:3'}}/blog/">{% trans "Blog" %}</a></li>
+                                        <li class="breadcrumb-item"><a href="/{{request.path|slice:'1:3'}}/blog/blog/{{ post.id }}">{% trans 'Blog Details' %}</a></li>
                                     </ol>
                                 </nav>
                             </div>
@@ -42,7 +43,7 @@
                                 {% for tags in post.tag.all %}
                                 <li><a href="#"><i class="fa fa-user"></i>{{ tags.name }}</a></li>
                                 {% endfor %}
-                                <li><i class="fa fa-comments"></i>Comments {{ post.comment_count }}</li>
+                                <li><i class="fa fa-comments"></i>{% trans "Comments" %} {{ post.comment_count }}</li>
                             </ul>
                             <p>
                                 {{ post.description | safe }}
@@ -119,7 +120,7 @@
 <!--                        </div>-->
 <!--                    </div>-->
                     <div class="comments-area">
-                        <h4>{{ post.comment_count }} Comments</h4>
+                        <h4>{{ post.comment_count }} {% trans "Comments" %}</h4>
                         <div class="comment-list">
                             {% for comment in comments %}
                                 <div class="single-comment justify-content-between d-flex">
@@ -139,7 +140,7 @@
                                                 <p class="date">{{ comment.created_at }}</p>
                                             </div>
                                             <div class="reply-btn">
-                                                <a href="#" class="btn-reply text-uppercase">reply</a>
+                                                <a href="#" class="btn-reply text-uppercase">{% trans 'reply' %}</a>
                                             </div>
                                         </div>
                                     </div>
@@ -150,14 +151,14 @@
                         </div>
                     </div>
                     <div class="comment-form">
-                        <h4>Leave a Comment</h4>
+                        <h4>{% trans "Leave a Comment" %}</h4>
                         <form class="form-contact comment_form" method="post" id="commentForm">
                             {% csrf_token %}
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
                                         <textarea class="form-control w-100" name="comment" id="comment" cols="30"
-                                                  rows="9" placeholder="Write Comment"></textarea>
+                                                  rows="9" placeholder="{% trans 'Write a Comment' %}"></textarea>
                                     </div>
                                 </div>
 <!--                                <div class="col-sm-6">-->
@@ -174,7 +175,7 @@
 <!--                                </div>-->
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="button button-contactForm btn_1 boxed-btn">Post Comment
+                                <button type="submit" class="button button-contactForm btn_1 boxed-btn">{% trans "Post Comment" %}
                                 </button>
                             </div>
                         </form>
@@ -186,16 +187,16 @@
                             <form action="#">
                                 <div class="form-group m-0">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="Search Keyword">
+                                        <input type="text" class="form-control" placeholder="{% trans 'Search Keyword' %}">
                                         <div class="input-group-append d-flex">
-                                            <button class="boxed-btn2" type="button">Search</button>
+                                            <button class="boxed-btn2" type="button">{% trans "Search" %}</button>
                                         </div>
                                     </div>
                                 </div>
                             </form>
                         </aside>
                         <aside class="single_sidebar_widget post_category_widget">
-                            <h4 class="widget_title" style="color: #2d2d2d;">Category</h4>
+                            <h4 class="widget_title" style="color: #2d2d2d;">{% trans "Category" %}</h4>
                             <ul class="list cat-list">
                                 {% for category in categories %}
                                 <li>
@@ -207,12 +208,12 @@
                             </ul>
                         </aside>
                         <aside class="single_sidebar_widget popular_post_widget">
-                            <h3 class="widget_title" style="color: #2d2d2d;">Popular Post</h3>
+                            <h3 class="widget_title" style="color: #2d2d2d;">{% trans "Popular Post" %}</h3>
                             {% for popular_post in popular_posts %}
                             <div class="media post_item">
-                                <a href="/blog/blog/{{ popular_post.id }}"><img src="{{ popular_post.image.url }}" style="width: 80px; height: 80px;" alt="post"></a>
+                                <a href="/{{request.path|slice:'1:3'}}/blog/blog/{{ popular_post.id }}"><img src="{{ popular_post.image.url }}" style="width: 80px; height: 80px;" alt="post"></a>
                                 <div class="media-body">
-                                    <a href="/blog/blog/{{ popular_post.id }}">
+                                    <a href="/{{request.path|slice:'1:3'}}/blog/blog/{{ popular_post.id }}">
                                         <h3 style="color: #2d2d2d;">{{ popular_post.title }}</h3>
                                     </a>
                                     <p>{{ popular_post.created_at }}</p>
@@ -221,7 +222,7 @@
                             {% endfor %}
                         </aside>
                         <aside class="single_sidebar_widget tag_cloud_widget">
-                            <h4 class="widget_title" style="color: #2d2d2d;">Tag Clouds</h4>
+                            <h4 class="widget_title" style="color: #2d2d2d;">{% trans "Tag Clouds" %}</h4>
                             <ul class="list">
                                 {% for tag in tags %}
                                 <li>

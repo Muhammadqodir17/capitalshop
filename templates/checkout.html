@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 <main>
 
@@ -10,11 +11,11 @@
                     <div class="slider-area">
                         <div class="slider-height2 slider-bg4 d-flex align-items-center justify-content-center">
                             <div class="hero-caption hero-caption2">
-                                <h2>Checkout</h2>
+                                <h2>{% trans "Checkout" %}</h2>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb justify-content-center">
-                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                        <li class="breadcrumb-item"><a href="#">Checkout</a></li>
+                                        <li class="breadcrumb-item"><a href="/{{request.path|slice:'1:3'}}/">{% trans "Home" %}</a></li>
+                                        <li class="breadcrumb-item"><a href="#">{% trans "Checkout" %}</a></li>
                                     </ol>
                                 </nav>
                             </div>
@@ -32,64 +33,65 @@
                 <form action="{% url 'checkout' %}" method="POST">
                     {% csrf_token %}
                     <div class="row">
-                        <b style="color: black; font-size: 25px; margin-bottom: 30px;">Buyurtmani Rasmiylashtirish</b>
+                        <b style="color: black; font-size: 25px; margin-bottom: 30px;">{% trans "Buyurtmani Rasmiylashtirish" %}</b>
                         <div class="col-lg-8">
                             <div class="qabul-yetkazish">
-                                <b style="color: black; font-size: 20px; font-weight: 550">Qabul qilish usuli va
-                                    yetkazib
-                                    berish manzili:</b>
+                                <b style="color: black; font-size: 20px; font-weight: 550">
+                                    {% trans 'Qabul qilish usuli va yetkazib berish manzili' %}
+                                </b>
                                 <div id="city-dropdown" class="dropdown-container">
-                                    <label for="custom-dropdown">Yetkazib berish shahri</label>
-                                    <div id="custom-dropdown" class="dropdown-btn">Toshkent</div>
+                                    <label for="custom-dropdown">{% trans "Yetkazib berish shahri" %}</label>
+                                    <div id="custom-dropdown" class="dropdown-btn">{% trans "Toshkent" %}</div>
                                     <div class="dropdown-list">
-                                        <div class="dropdown-item">Toshkent</div>
-                                        <div class="dropdown-item">Namangan</div>
-                                        <div class="dropdown-item">Farxod</div>
-                                        <div class="dropdown-item">Qorashina</div>
-                                        <div class="dropdown-item">Shamaton</div>
-                                        <div class="dropdown-item">Bogdan</div>
-                                        <div class="dropdown-item">Unxayat</div>
-                                        <div class="dropdown-item">Jumabuy</div>
+                                        <div class="dropdown-item">{% trans "Toshkent" %}</div>
+                                        <div class="dropdown-item">{% trans "Namangan" %}</div>
+                                        <div class="dropdown-item">{% trans "Farxod" %}</div>
+                                        <div class="dropdown-item">{% trans "Qorashina" %}</div>
+                                        <div class="dropdown-item">{% trans "Shamaton" %}</div>
+                                        <div class="dropdown-item">{% trans "Bogdan" %}</div>
+                                        <div class="dropdown-item">{% trans "Unxayat" %}</div>
+                                        <div class="dropdown-item">{% trans "Jumabuy" %}</div>
                                     </div>
                                 </div>
                                 <input type="hidden" name="delivery_point" id="selected-city" value="Toshkent">
 
-                                <h3 style="font-size: 15px; margin-top: 35px; margin-bottom: 8px">Olish usuli:</h3>
+                                <h3 style="font-size: 15px; margin-top: 35px; margin-bottom: 8px">{% trans "Olish usuli" %}:</h3>
                                 <div class="option-group">
                                     <input type="radio" id="pickup" name="delivery" value="pickup" checked>
-                                    <label for="pickup">Uzum topshirish punkti</label>
+                                    <label for="pickup">{% trans "Uzum topshirish punkti" %}</label>
                                 </div>
                                 <div class="option-group">
                                     <input type="radio" id="courier" name="delivery" value="courier">
-                                    <label for="courier">Kuryer orqali eshikkacha</label>
+                                    <label for="courier">{% trans "Kuryer orqali eshikkacha" %}</label>
                                 </div>
-                                <h3 id="courier-heading" style="font-size: 15px; margin-top: 35px; margin-bottom: 8px">Kuryer bilan manzil
-                                    bo’yicha</h3>
+                                <h3 id="courier-heading" style="font-size: 15px; margin-top: 35px; margin-bottom: 8px">
+                                    {% trans "Kuryer bilan manzil
+                                    bo’yicha" %}</h3>
                                 <h5 style="color: red; font-size: 15px">{{ message }}</h5>
                                 <input type="text" class="form-control" id="delivery-address" name="delivery_address"
-                                       placeholder="delivery address*">
+                                       placeholder="{% trans 'delivery address' %}*">
                             </div>
                             <br>
                             <div class="qabul-buyurtma">
-                                <b style="color: black; font-size: 20px; font-weight: 550">Buyurtma qabul qiluvchi:</b>
+                                <b style="color: black; font-size: 20px; font-weight: 550">{% trans "Buyurtma qabul qiluvchi" %}:</b>
                                 <br>
                                 <br>
                                 <!--                            <form class="row contact_form" style="margin-top: 15px" action="#" method="post"-->
                                 <!--                                  novalidate="novalidate">-->
                                 <input style="margin-bottom: 10px" type="text" class="form-control" id="first"
-                                       name="first_name" placeholder="First name*" required>
+                                       name="first_name" placeholder="{% trans 'First name' %}*" required>
                                 <input style="margin-bottom: 10px" type="text" class="form-control" id="last"
-                                       name="last_name" placeholder="Last name*" required>
+                                       name="last_name" placeholder="{% trans 'Last name' %}*" required>
                                 <input style="margin-bottom: 10px" type="tel" maxlength="13" class="form-control"
-                                       id="phone" name="phone_number" placeholder="Phone number*" required>
+                                       id="phone" name="phone_number" placeholder="{% trans 'Phone number' %}*" required>
                                 <input style="margin-bottom: 10px" type="email" class="form-control" id="email"
-                                       name="email" placeholder="Email Address*" required>
+                                       name="email" placeholder="{% trans 'Email Address' %}*" required>
                             </div>
                         </div>
                         <br>
                         <br>
                         <div class="payment-options-container">
-                            <b style="color: black; font-size: 20px; font-weight: 550">To`lov turi</b>
+                            <b style="color: black; font-size: 20px; font-weight: 550">{% trans "To`lov turi" %}</b>
                             <br>
                             <br>
                             <!-- Payment Option 1 -->
@@ -97,10 +99,10 @@
                                 <input type="radio" id="option1" name="payment" value="online">
                                 <label for="option1">
                                     <span class="option-icon">💳</span>
-                                    Karta orqali onlayn
+                                    {% trans "Karta orqali onlayn" %}
                                 </label>
                                 <div class="option-subtext">
-                                    UZCARD, HUMO, Visa, MasterCard
+                                    {% trans 'UZCARD' %}, {% trans "HUMO" %}, {% trans 'Visa' %}, {% trans "MasterCard" %}
                                 </div>
                             </div>
 
@@ -109,25 +111,23 @@
                                 <input type="radio" id="option2" name="payment" value="byhand">
                                 <label for="option2">
                                     <span class="option-icon">💳</span>
-                                    Olinganda to'lanadi
+                                    {% trans "Olinganda to'lanadi" %}
                                 </label>
-                                <div class="option-subtext">
-                                    Kuryerga — faqat naqd pulda yoki QR kod orqali, topshirish punktlarida — naqd pul va
-                                    karta orqali
+                                <div class="option-subtext">{% trans "Kuryerga — faqat naqd pulda yoki QR kod orqali, topshirish punktlarida — naqd pul va karta orqali" %}
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-4">
-                            <div class="order-summary" style="margin-top: -700px">
-                                <h3>Buyurtmangiz</h3>
-                                <a href="/cart"><h5>Savatga o`tish</h5></a>
+                            <div class="order-summary">
+                                <h3>{% trans "Buyurtmangiz" %}</h3>
+                                <a href="/{{request.path|slice:'1:3'}}/cart"><h5>{% trans "Savatga o`tish" %}</h5></a>
                                 <div class="item-section">
-                                    <span>Mahsulotlar ({{ total_quantity }}):</span>
+                                    <span>{% trans "Mahsulotlar" %} ({{ total_quantity }}):</span>
                                     <span>${{ without_discount }}</span>
                                 </div>
                                 <!--                            <a href="#" class="delivery-date">Yetkazib berish 13-noyabr</a>-->
                                 <div class="total-section">
-                                    <span>Jami:</span>
+                                    <span>{% trans "Jami" %}:</span>
                                     <span>${{ with_discount }}</span>
                                 </div>
                                 <!--                            <div class="savings">Tejovingiz: ${{ saving }}</div>-->
@@ -138,15 +138,15 @@
                                 {% endif %}
                                 <div class="cupon_area promo-container">
                                     <div class="promo-question" onclick="togglePromoInput()">
-                                        <span class="arrow">▼</span> Promokod bormi?
+                                        <span class="arrow">▼</span> {% trans "Promokod bormi" %}?
                                     </div>
                                     <div class="promo-input-container">
                                         <input type="text" class="promo-input" name="promo_code" id="promo-code"
-                                               placeholder="PROMO KODNI KIRITING"/>
+                                               placeholder="{% trans 'PROMO KODNI KIRITING' %}"/>
                                     </div>
                                 </div>
 
-                                <button type="submit" class="checkout-btn">Rasmiylashtirishga o‘tish</button>
+                                <button type="submit" class="checkout-btn">{% trans "Rasmiylashtirishga o‘tish" %}</button>
                             </div>
                         </div>
                     </div>
@@ -223,11 +223,13 @@
 
     /* Order summary box styling */
     .order-summary {
-        width: 100%;
+        width: 360px;
+        margin-top: 47px;
         padding: 20px;
         border: 1px solid #ddd;
         border-radius: 10px;
         font-family: Arial, sans-serif;
+        position: relative;
     }
 
     .order-summary h3 {
@@ -568,7 +570,7 @@
 
     /* Container for the payment options */
     .payment-options-container {
-        max-width: 855px;
+        max-width: 735px;
         margin: auto;
         margin-top: 25px;
         margin-left: 13px;
@@ -668,6 +670,108 @@
         padding: 10px;
         border-radius: 8px;
         margin-top: 20px;
+    }
+</style>
+<style>
+    /* Flex container for the billing details */
+    .billing_details .row {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        position: relative; /* Ensure that child elements can be positioned relative to this container */
+    }
+
+    /* Order summary section, positioned on the right side */
+    .billing_details .col-lg-4 {
+        position: absolute;
+        top: 20px; /* Adjust based on how far from the top you want the summary */
+        right: 20px; /* Adjust based on how far from the right edge you want the summary */
+        width: auto; /* Adjust as necessary */
+        padding-left: 0; /* Remove any padding left */
+        padding-right: 0; /* Remove any padding right */
+    }
+</style>
+<style>
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      .billing_details .row {
+        flex-direction: column;
+      }
+
+      .billing_details .col-lg-8,
+      .billing_details .col-lg-4 {
+        width: 100%;
+        position: static;
+      }
+
+      .order-summary {
+        width: 100%;
+        margin-top: 20px;
+      }
+
+      .qabul-yetkazish,
+      .qabul-buyurtma,
+      .payment-options-container {
+        width: 100%;
+        padding: 15px;
+      }
+
+      .dropdown-container {
+        width: 100%;
+        margin-right: 0;
+      }
+
+      .promo-input-container {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .option-group {
+        padding: 10px;
+      }
+
+      .option-subtext {
+        font-size: 12px;
+      }
+
+      .hero-caption h2 {
+        font-size: 24px;
+      }
+
+      .breadcrumb {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .order-summary h3 {
+        font-size: 16px;
+      }
+
+      .order-summary h5 {
+        font-size: 14px;
+        width: 110px;
+        height: 25px;
+        padding-top: 3px;
+      }
+
+      .order-summary .item-section,
+      .order-summary .total-section {
+        font-size: 14px;
+      }
+
+      .checkout-btn {
+        font-size: 14px;
+        padding: 10px;
+      }
+
+      .option-group label {
+        font-size: 14px;
+      }
+
+      .option-subtext {
+        font-size: 11px;
+      }
     }
 </style>
 

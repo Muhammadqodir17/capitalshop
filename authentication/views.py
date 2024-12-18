@@ -1,4 +1,4 @@
-from django.contrib.auth.decorators import login_required
+from store.utils import test_login_required
 from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
@@ -9,23 +9,23 @@ from .models import User
 from store.models import CardObj, Order
 
 
-def login_view(requests):
+def login_view(request):
     cart_counter = 0
-    if requests.method == 'POST':
-        username = requests.POST.get('username')
-        password = requests.POST.get('password')
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
         user_for_username = authenticate(username=username, password=password)
         if user_for_username:
-            login(requests, user_for_username)
-            return redirect('/')
-        return render(requests, 'login.html', context={'message': 'Invalid username or password'})
-    return render(requests, 'login.html', context={'cart_num': cart_counter})
+            login(request, user_for_username)
+            return redirect(f'/{request.path[1:3]}/')
+        return render(request, 'login.html', context={'message': 'Invalid username or password'})
+    return render(request, 'login.html', context={'cart_num': cart_counter})
 
 
-@login_required(login_url='/auth/login')
+@test_login_required
 def logout_view(request):
     logout(request)
-    return redirect('/auth/login')
+    return redirect(f'/{request.path[1:3]}/')
 
 
 def register_view(requests):
@@ -86,7 +86,7 @@ def register_view(requests):
     return render(requests, 'register.html')
 
 
-@login_required(login_url='/auth/login')
+@test_login_required
 def profile_view(request):
     cart_counter = CardObj.objects.filter(user=request.user, ordered=False).aggregate(Count('user'))['user__count']
     credit_cart = UserCard.objects.filter(user_id=request.user.id).first()
@@ -118,4 +118,4 @@ def edit_profile_view(request):
         user.phone_number = data.get('phone_number')
         user.save()
 
-    return redirect('/auth/profile')
+    return redirect(f'/{request.path[1:3]}/auth/profile')

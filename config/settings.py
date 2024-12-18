@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'contact',
     'store',
 
+    'rosetta',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -57,6 +58,7 @@ SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -64,6 +66,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'allauth.account.middleware.AccountMiddleware'
 ]
+
+LANGUAGE_COOKIE_NAME = 'django_language'
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -77,7 +81,7 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 LOGIN_REDIRECT_URL = '/'
-ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 ROOT_URLCONF = 'config.urls'
 
@@ -138,11 +142,19 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Asia/Tashkent'
 
 USE_I18N = True
+
+LANGUAGES = [
+    ('uz', 'Uzbek'),
+    ('ru', 'Russian'),
+    ('en', 'English'),
+]
+
+LOCALE_PATHS = BASE_DIR / 'locale',
 
 USE_TZ = True
 

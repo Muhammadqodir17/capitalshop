@@ -1,110 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FAQ - Capital Shop</title>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            background-color: #f9f9f9;
-        }
-
-        header {
-            background-color: #ff0000;
-            color: #fff;
-            padding: 2rem 1rem;
-            text-align: center;
-        }
-
-        header h1 {
-            margin: 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .faq-item {
-            background: #fff;
-            margin-bottom: 1rem;
-            padding: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .faq-item h2 {
-            font-size: 1.2rem;
-            color: #ff0000;
-            margin: 0 0 0.5rem;
-        }
-
-        .faq-item p {
-            margin: 0;
-        }
-
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 1rem;
-            margin-top: 2rem;
-        }
-
-        footer a {
-            color: #ff0000;
-            text-decoration: none;
-        }
-    </style>
-</head>
-<body>
-<header>
-    <h1>Frequently Asked Questions</h1>
-    <p>Find answers to common questions about Capital Shop.</p>
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<header class="bg-primary text-white py-4">
+    <div class="container text-center">
+        <br>
+        <h1>{% trans "Frequently Asked Questions" %}</h1>
+        <p>{% trans "Find answers to common questions about Capital Shop." %}</p>
+        <br>
+    </div>
 </header>
-<div class="container">
-    <div class="faq-item">
-        <h2>1. What is Capital Shop?</h2>
-        <p>Capital Shop is an e-commerce platform designed to provide a seamless shopping experience. It's also a
-            portfolio project showcasing the developer's expertise in web development.</p>
-    </div>
-    <div class="faq-item">
-        <h2>2. Do you process real payments?</h2>
-        <p>No, this is a portfolio project and does not process real transactions. All payment features are for
-            demonstration purposes only.</p>
-    </div>
-    <div class="faq-item">
-        <h2>3. How can I contact you?</h2>
-        <p>You can reach us via email at <a href="mailto:shaislamovshakhruz@gmail.com">shaislamovshakhruz@gmail.com</a>.
-            Feel free to
-            share feedback or ask questions!</p>
-    </div>
-    <div class="faq-item">
-        <h2>4. Can I see more of your work?</h2>
-        <p>Absolutely! Visit our <a href="https://github.com/shakhruzdev" target="_blank">GitHub</a> or <a
-                href="https://www.linkedin.com/in/shakhruz-shaislamov-b26065301/" target="_blank">LinkedIn</a> for more
-            projects.</p>
-    </div>
-    <div class="faq-item">
-        <h2>5. How do I filter products?</h2>
-        <p>You can use the filtering options on the product pages to sort items by type, size, color, genre, brand, or
-            price.</p>
-    </div>
-    <div class="faq-item">
-        <h2>6. Will my personal information be safe?</h2>
-        <p>Absolutely. We follow strict security measures to protect your data. For more details, visit our <a
-                href="/privacy_policy">Privacy Policy</a>.</p>
+<div class="container my-5">
+    <div class="accordion" id="faqAccordion">
+        <!-- FAQ Item 1 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingOne">
+                <button class="accordion-button" type="button" style="color: white; background-color: red; border-color: red" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    {% trans "1. What is Capital Shop?" %}
+                </button>
+            </h2>
+            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {% trans "Capital Shop is an e-commerce platform designed to provide a seamless shopping experience. It's also a portfolio project showcasing the developer's expertise in web development." %}
+                </div>
+            </div>
+        </div>
+        <!-- FAQ Item 2 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+                <button class="accordion-button collapsed" style="color: white; background-color: red; border-color: red" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    {% trans "2. Do you process real payments?" %}
+                </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {% trans "No, this is a portfolio project and does not process real transactions. All payment features are for demonstration purposes only." %}
+                </div>
+            </div>
+        </div>
+        <!-- FAQ Item 3 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingThree">
+                <button class="accordion-button collapsed" style="color: white; background-color: red; border-color: red" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    {% trans "3. How can I contact you?" %}
+                </button>
+            </h2>
+            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {% trans "You can reach us via email at " %}
+                    <a style="color: red" href="https://km1728.uz@gmail.com">@gmail.com</a>.
+                    {% trans "Feel free to share feedback or ask questions!" %}
+                </div>
+            </div>
+        </div>
+        <!-- FAQ Item 4 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFour">
+                <button class="accordion-button collapsed" style="color: white; background-color: red; border-color: red" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    {% trans "4. Can I see more of your work?" %}
+                </button>
+            </h2>
+            <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {% trans "Absolutely! Visit our" %}
+                    <a style="color: red" href="https://github.com/Muhammadqodir17/" target="_blank">GitHub</a>
+                    {% trans "or" %}
+                    <a style="color: red" href="https://www.linkedin.com/in/muhammadqodir-karimboyev-8b27a32b9/" target="_blank">LinkedIn</a>
+                    {% trans "for more projects." %}
+                </div>
+            </div>
+        </div>
+        <!-- FAQ Item 5 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingFive">
+                <button class="accordion-button collapsed" style="color: white; background-color: red; border-color: red" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+                    {% trans "5. How do I filter products?" %}
+                </button>
+            </h2>
+            <div id="collapseFive" class="accordion-collapse collapse" aria-labelledby="headingFive" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {% trans "You can use the filtering options on the product pages to sort items by type, size, color, genre, brand, or price." %}
+                </div>
+            </div>
+        </div>
+        <!-- FAQ Item 6 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingSix">
+                <button class="accordion-button collapsed" style="color: white; background-color: red; border-color: red" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+                    {% trans "6. Will my personal information be safe?" %}
+                </button>
+            </h2>
+            <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    {% trans "Absolutely. We follow strict security measures to protect your data. For more details, visit our" %}
+                    <a href="/{{request.path|slice:'1:3'}}/store/privacy">{% trans "Privacy" %}</a>.
+                </div>
+            </div>
+        </div>
+        <br>
     </div>
 </div>
-<footer>
-    <p>&copy; 2024 Capital Shop. Built with ❤️ by <strong>shakhruz_dev</strong>.</p>
-</footer>
-</body>
-</html>
+{% endblock %}

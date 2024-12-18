@@ -1,5 +1,6 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% load i18n %}
 {% block content %}
     <main>
 
@@ -10,11 +11,11 @@
                     <div class="slider-area">
                         <div class="slider-height2 slider-bg4 d-flex align-items-center justify-content-center">
                             <div class="hero-caption hero-caption2">
-                                <h2>Contact</h2>
+                                <h2>{% trans "Contact" %}</h2>
                                 <nav aria-label="breadcrumb">
                                     <ol class="breadcrumb justify-content-center">
-                                        <li class="breadcrumb-item"><a href="/">Home</a></li>
-                                        <li class="breadcrumb-item">Contact</li>
+                                        <li class="breadcrumb-item"><a href="/{{request.path|slice:'1:3'}}/">{% trans "Home" %}</a></li>
+                                        <li class="breadcrumb-item">{% trans "Contact" %}</li>
                                     </ol>
                                 </nav>
                             </div>
@@ -30,7 +31,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <h2 class="contact-title">Get in Touch</h2>
+                    <h2 class="contact-title">{% trans "Get in Touch" %}</h2>
                 </div>
                 <div class="col-lg-8">
                     <form class="form-contact contact_form"
@@ -42,21 +43,21 @@
                                     <textarea class="form-control w-100" name="message" id="message" cols="30" rows="9"
                                               onfocus="this.placeholder = ''"
                                               onblur="this.placeholder = 'Enter Message'"
-                                              placeholder=" Enter Message"></textarea>
+                                              placeholder="{% trans 'Enter Message' %}"></textarea>
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <input class="form-control valid" name="name" id="name" type="text"
                                            onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'"
-                                           placeholder="Enter your name">
+                                           placeholder="{% trans 'Enter your name' %}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <input class="form-control valid" name="email" id="email" type="email"
                                            onfocus="this.placeholder = ''"
-                                           onblur="this.placeholder = 'Enter email address'" placeholder="Email">
+                                           onblur="this.placeholder = 'Enter email address'" placeholder="{% trans 'Email' %}">
                                 </div>
                             </div>
 <!--                            <div class="col-12">-->
@@ -68,7 +69,7 @@
 <!--                            </div>-->
                         </div>
                         <div class="form-group mt-3">
-                            <button type="submit" class="button button-contactForm boxed-btn">Send</button>
+                            <button type="submit" class="button button-contactForm boxed-btn">{% trans 'Send' %}</button>
                         </div>
                     </form>
                 </div>
@@ -76,15 +77,15 @@
                     <div class="media contact-info">
                         <span class="contact-info__icon"><i class="ti-home"></i></span>
                         <div class="media-body">
-                            <h3>Buttonwood, California.</h3>
-                            <p>Rosemead, CA 91770</p>
+                            <h3>{% trans "Buttonwood, California." %}</h3>
+                            <p>{% trans "Rosemead, CA 91770" %}</p>
                         </div>
                     </div>
                     <div class="media contact-info">
                         <span class="contact-info__icon"><i class="ti-tablet"></i></span>
                         <div class="media-body">
                             <h3>+1 253 565 2365</h3>
-                            <p>Mon to Fri 9am to 6pm</p>
+                            <p>{% trans "Mon to Fri 9am to 6pm" %}</p>
                         </div>
                     </div>
                     <div class="media contact-info">
@@ -93,7 +94,7 @@
                             <h3><a href="https://preview.colorlib.com/cdn-cgi/l/email-protection" class="__cf_email__"
                                    data-cfemail="7e0d0b0e0e110c0a3e1d1112110c12171c501d1113">[email&#160;protected]</a>
                             </h3>
-                            <p>Send us your query anytime!</p>
+                            <p>{% trans "Send us your query anytime!" %}</p>
                         </div>
                     </div>
                 </div>

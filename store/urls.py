@@ -22,6 +22,7 @@ from .views import (
     support_view,
     privacy_view,
     search_view,
+    suggestions_view,
 )
 
 urlpatterns = [
@@ -49,4 +50,5 @@ urlpatterns = [
     path('privacy/', privacy_view, name='privacy_view'),
     path('about/', about_view, name='about_view'),
     path('search/', search_view, name='search'),
+    path('suggestions/', suggestions_view, name='suggestions'),
 ]
